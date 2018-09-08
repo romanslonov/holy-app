@@ -1,0 +1,29 @@
+{
+  "name": "holy-app",
+  "description": "Project management tool based on Node.js and React.js",
+  "author": "Roman Slonov",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "forever": "^0.15.3",
+    "mongoose": "^5.2.13",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "express:start": "concurrently \"npm run watch\"",
+    "watch": "nodemon ./start.js --ignore public/",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4"
+  }
+}
