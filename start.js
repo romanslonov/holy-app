@@ -15,7 +15,7 @@ require('./server/models/Message');
 
 // Start our app!
 const app = require('./server/app');
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT);
 const server = app.listen(app.get('port'), () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
