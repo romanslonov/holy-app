@@ -19,7 +19,11 @@ class LoginPage extends Component {
     this.submitForm = this.submitForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
-
+  componentDidMount() {
+    if (Auth.isUserAuthenticated()) {
+      this.context.router.history.replace('/');
+    }
+  }
   /**
    * Process the form.
    *

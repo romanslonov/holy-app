@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import RegisterForm from '../../components/RegisterForm';
 import request from "../../request";
+import Auth from "../../Auth";
 
 class RegisterPage extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       errors: {},
@@ -18,7 +20,11 @@ class RegisterPage extends Component {
     this.submitForm = this.submitForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
-
+  componentDidMount() {
+    if (Auth.isUserAuthenticated()) {
+      this.context.router.history.replace('/');
+    }
+  }
   /**
    * Change the user object.
    *
@@ -46,7 +52,8 @@ class RegisterPage extends Component {
       hasToken: false,
       fullPath: true,
       body: JSON.stringify(this.state.user),
-    });
+    })
+      .then(() => this.context.router.history.replace('/'));
   }
 
   render() {
@@ -63,5 +70,9 @@ class RegisterPage extends Component {
     )
   }
 }
+
+RegisterPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default RegisterPage;
