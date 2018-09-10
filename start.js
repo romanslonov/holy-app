@@ -10,12 +10,9 @@ mongoose.connection.on('error', (err) => {
   console.error(`🚫 → ${err.message}`);
 });
 
-// import all of our models
-require('./server/models/Message');
-
 // Start our app!
 const app = require('./server/app');
-app.set('port', process.env.PORT);
+app.set('port', 80);
 const server = app.listen(app.get('port'), () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
