@@ -17,10 +17,6 @@ const schema = new Schema(
       type: String,
       trim: true,
       required: [true, 'Name is required'],
-      validate: {
-        validator: v => doesContain(' ', v),
-        message: 'You must add your first and last name',
-      },
     },
   },
   {
