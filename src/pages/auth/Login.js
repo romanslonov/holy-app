@@ -62,7 +62,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div className="container text-align-center">
-        <h1>Sign In</h1>
+        <h1>Login</h1>
         <SignInForm
           onSubmit={this.submitForm}
           onChange={this.changeUser}

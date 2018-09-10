@@ -53,13 +53,17 @@ class RegisterPage extends Component {
       fullPath: true,
       body: JSON.stringify(this.state.user),
     })
-      .then(() => this.context.router.history.replace('/'));
+      .then(response=> response.json())
+      .then(({token}) => {
+        Auth.authenticateUser(token);
+        this.context.router.history.replace('/');
+      });
   }
 
   render() {
     return (
       <div className="container text-align-center">
-        <h1>Sign Up</h1>
+        <h1>Register</h1>
         <RegisterForm
           onSubmit={this.submitForm}
           onChange={this.changeUser}
