@@ -8,7 +8,9 @@ class HomePage extends Component {
     this.state = ({ message: '' });
   }
   async componentDidMount() {
-    const message = await request('/').then(response => response.json()).then(({message}) => message);
+    const message = await request('/')
+      .then(response => response.json())
+      .then(({message}) => message);
     console.log(message);
     this.setState({ message });
   }

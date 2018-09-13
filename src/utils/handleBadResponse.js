@@ -5,14 +5,13 @@ import Auth from '../Auth';
 
 export default function handleBadResponse(response) {
   const {status} = response;
-  const {console, location} = window;
+  const {console} = window;
   switch (status) {
     case 400:
       console.log(response);
       break;
     case 401:
       Auth.deauthenticateUser();
-      location.reload(true);
       console.log(response);
       break;
     case 404:

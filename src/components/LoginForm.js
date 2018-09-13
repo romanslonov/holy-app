@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Button from '../components/Button';
+import Input from '../components/Input';
 
 const LoginForm = ({onSubmit, onChange, errors, user}) => (
   <div className="container">
@@ -8,8 +10,8 @@ const LoginForm = ({onSubmit, onChange, errors, user}) => (
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
       <div className="">
-        <label htmlFor="email">Email</label>
-        <input
+        <Input
+          label="Email"
           required
           name="email"
           onChange={onChange}
@@ -19,8 +21,8 @@ const LoginForm = ({onSubmit, onChange, errors, user}) => (
       </div>
 
       <div className="">
-        <label htmlFor="password">Password</label>
-        <input
+        <Input
+          label="Password"
           required
           type="password"
           name="password"
@@ -31,7 +33,7 @@ const LoginForm = ({onSubmit, onChange, errors, user}) => (
       </div>
 
       <div className="">
-        <button type="submit">Log in</button>
+        <Button variant="primary">Log in</Button>
       </div>
 
       <div>Don't have an account? <Link to={'/auth/register'}>Create one</Link>.</div>

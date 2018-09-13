@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const passportLocalMongoose = require('passport-local-mongoose');
-const { isEmail, doesContain } = require('../utils/validation');
+const { isEmail } = require('../utils/validation');
 
 const schema = new Schema(
   {

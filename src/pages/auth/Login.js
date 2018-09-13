@@ -42,7 +42,9 @@ class LoginPage extends Component {
       .then(response=> response.json())
       .then(({token}) => {
         Auth.authenticateUser(token);
-        this.context.router.history.replace('/');
+        const locationState = this.context.router.route.location.state;
+        const cameFromPath = locationState ? locationState.from : '/';
+        this.context.router.history.replace(cameFromPath);
       });
   }
 

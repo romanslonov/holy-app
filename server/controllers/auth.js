@@ -4,8 +4,6 @@ const {registerUser, authenticate, getAccessToken} = require('../utils/authentic
 exports.register = (req, res) => {
   const userToRegister = {email: req.body.email, name: req.body.name, password: req.body.password};
 
-  console.log(userToRegister);
-
   registerUser(userToRegister)
     .then(() => authenticate(userToRegister))
     .then(user => getAccessToken(user))

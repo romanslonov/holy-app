@@ -17,7 +17,11 @@ class Navigation extends Component {
     return (
       <div>
         {Auth.isUserAuthenticated()
-          ? <button onClick={this.deauthenticateUser}>Logout</button>
+          ? <div>
+              <button onClick={this.deauthenticateUser}>Logout</button>
+              <Link to="/dashboard">Home</Link>
+              <Link to="/dashboard/profile">Profile</Link>
+            </div>
           : <Link to="/auth/login">Login</Link>
         }
       </div>

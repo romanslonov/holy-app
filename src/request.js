@@ -9,7 +9,7 @@ export default function request(_path, _options) {
     emptyHeaders: false,
     headers: {
       Accept: 'application/json',
-      Authorization: `Token ${Auth.getToken()}`,
+      Authorization: `bearer ${Auth.getToken()}`,
       'Content-Type': 'application/json',
     },
   }, _options);

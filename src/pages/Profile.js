@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ProfilePage = () => (
-  <div className="container">
-    <h1>This is the profile page</h1>
+const Profile = (user) => (
+  <div className="container text-align-center">
+    <h1>Hello! {user.name}</h1>
   </div>
 );
 
-export default ProfilePage;
+export default Profile;
