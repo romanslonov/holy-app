@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import Dashboard from './layouts/Dashboard';
-import Auth from './layouts/Auth';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ThemeProvider } from 'react-jss';
+import DashboardLayout from './layouts/Dashboard';
+import ProfileLayout from './layouts/Profile';
+import AuthLayout from './layouts/Auth';
 import NotFoundPage from './pages/NotFound';
-import UsersPage from './pages/Users';
-import './App.css';
+import theme from './theme';
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/auth" component={Auth} />
-          <Route path="/users/:id" component={UsersPage} />
-          <Route path="/users" component={UsersPage} />
-          <Redirect exact from="/" to="/dashboard" />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={DashboardLayout} />
+            <Route path="/profile" component={ProfileLayout} />
+            <Route path="/auth" component={AuthLayout} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </Router>
+      </ThemeProvider>
     );
   }
 }

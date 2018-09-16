@@ -1,5 +1,24 @@
 import React from 'react';
+import injectSheet from 'react-jss';
 
-const Button = props => <button {...props}>{props.children}</button>;
+const styles = {
+  root: {
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    border: 'none',
+    padding: '8px 16px',
+    color: 'white',
+    borderRadius: '3px',
+    backgroundColor: '#5f58ff',
+  }
+};
 
-export default Button;
+const Button = ({ classes, children }) => (
+  <button className={classes.root}>{children}</button>
+);
+
+export default injectSheet(styles)(Button);

@@ -1,11 +1,10 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
-import HomePage from "../pages/Home";
 import ProfilePage from "../pages/Profile";
 import Navigation from '../components/Navigation';
 import AuthenticationChecker from '../components/Authentication';
 
-function Dashboard() {
+function Profile() {
   return (
     <div>
       <header>
@@ -13,11 +12,11 @@ function Dashboard() {
       </header>
       <main className="main">
         <Switch>
-          <Route path="/" component={AuthenticationChecker(HomePage)}/>
+          <Route path="/profile" component={AuthenticationChecker(ProfilePage)}/>
         </Switch>
       </main>
     </div>
   )
 }
 
-export default Dashboard;
+export default Profile;

@@ -5,11 +5,11 @@ import RegisterPage from "../pages/auth/Register";
 
 function Auth() {
   return (
-    <div className="dashboard-layout">
+    <div>
       <main>
         <Switch>
-          <Route exact path="/auth/login" component={LoginPage} />
-          <Route exact path="/auth/register" component={RegisterPage} />
+          <Route path="/auth/login" component={LoginPage} />
+          <Route path="/auth/register" component={RegisterPage} />
         </Switch>
       </main>
     </div>
