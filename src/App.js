@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Dashboard from './layouts/Dashboard';
 import Auth from './layouts/Auth';
 import NotFoundPage from './pages/NotFound';
+import UsersPage from './pages/Users';
 import './App.css';
 
 class App extends Component {
@@ -12,6 +13,8 @@ class App extends Component {
         <Switch>
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/auth" component={Auth} />
+          <Route path="/users/:id" component={UsersPage} />
+          <Route path="/users" component={UsersPage} />
           <Redirect exact from="/" to="/dashboard" />
           <Route component={NotFoundPage} />
         </Switch>

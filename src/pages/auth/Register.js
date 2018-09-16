@@ -47,7 +47,7 @@ class RegisterPage extends Component {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
-    request('/auth/register', {
+    request('http://localhost:80/auth/register/', {
       method: 'POST',
       hasToken: false,
       fullPath: true,

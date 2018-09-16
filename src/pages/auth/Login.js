@@ -33,7 +33,7 @@ class LoginPage extends Component {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
-    request('/auth/login', {
+    request('http://localhost:80/auth/login/', {
       method: 'POST',
       hasToken: false,
       fullPath: true,

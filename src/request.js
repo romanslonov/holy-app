@@ -1,6 +1,6 @@
 import Auth from './Auth';
 import handleBadResponse from './utils/handleBadResponse';
-const API_ROOT = '/api/v1';
+const API_ROOT = 'http://localhost:80/api/v1';
 
 export default function request(_path, _options) {
   const options = Object.assign({
@@ -9,7 +9,7 @@ export default function request(_path, _options) {
     emptyHeaders: false,
     headers: {
       Accept: 'application/json',
-      Authorization: `bearer ${Auth.getToken()}`,
+      Authorization: `Bearer ${Auth.getToken()}`,
       'Content-Type': 'application/json',
     },
   }, _options);

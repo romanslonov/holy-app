@@ -3,7 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import HomePage from "../pages/Home";
 import ProfilePage from "../pages/Profile";
 import Navigation from '../components/Navigation';
-import AuthenticationChecker from '../components/AuthenticationChecker';
+import AuthenticationChecker from '../components/Authentication';
 
 function Dashboard() {
   return (
