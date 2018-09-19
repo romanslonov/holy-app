@@ -1,8 +1,9 @@
-import React from "react";
-import {Route, Switch} from "react-router-dom";
-import HomePage from "../pages/Home";
-import Navigation from '../components/Navigation';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import FeedPage from '../pages/Feed';
+import Navigation from '../components/navigation/Navigation';
 import AuthenticationChecker from '../components/Authentication';
+import Container from '../components/Container';
 
 function Dashboard() {
   return (
@@ -11,12 +12,14 @@ function Dashboard() {
         <Navigation />
       </header>
       <main className="main">
-        <Switch>
-          <Route path="/" component={AuthenticationChecker(HomePage)}/>
-        </Switch>
+        <Container>
+          <Switch>
+            <Route path="/" component={AuthenticationChecker(FeedPage)} />
+          </Switch>
+        </Container>
       </main>
     </div>
-  )
+  );
 }
 
 export default Dashboard;

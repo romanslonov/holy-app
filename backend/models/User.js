@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const Sequelize = require('sequelize');
 const bcryptService = require('../services/bcrypt');
 
@@ -15,30 +16,30 @@ const User = sequelize.define('User', {
   id: {
     autoIncrement: true,
     primaryKey: true,
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
   },
   email: {
     type: Sequelize.STRING,
     unique: true,
     validate: {
-      isEmail: true
-    }
+      isEmail: true,
+    },
   },
   name: {
     type: Sequelize.STRING,
-    notEmpty: true
+    notEmpty: true,
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   status: {
     type: Sequelize.ENUM('active', 'inactive'),
-    defaultValue: 'active'
+    defaultValue: 'active',
   },
   role: {
     type: Sequelize.ENUM('admin', 'user'),
-    defaultValue: 'user'
+    defaultValue: 'user',
   },
 }, { hooks, tableName });
 

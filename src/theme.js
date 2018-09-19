@@ -1,3 +1,6 @@
 module.exports = {
-  pallete: {}
+  spacing: {
+    unit: 4,
+  },
+  pallete: {},
 };

@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SignInForm from '../../components/LoginForm';
 import Auth from '../../Auth';
-import request from "../../request";
+import request from '../../request';
 
 class LoginPage extends Component {
   constructor(props, context) {
@@ -12,18 +12,21 @@ class LoginPage extends Component {
       errors: {},
       user: {
         email: '',
-        password: ''
-      }
+        password: '',
+      },
     };
 
     this.submitForm = this.submitForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
+
   componentDidMount() {
     if (Auth.isUserAuthenticated()) {
-      this.context.router.history.replace('/');
+      const { router } = this.context;
+      router.history.replace('/');
     }
   }
+
   /**
    * Process the form.
    *
@@ -33,18 +36,21 @@ class LoginPage extends Component {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
+    const { user } = this.state;
+
     request('http://localhost:80/auth/login/', {
       method: 'POST',
       hasToken: false,
       fullPath: true,
-      body: JSON.stringify(this.state.user),
+      body: JSON.stringify(user),
     })
-      .then(response=> response.json())
-      .then(({token}) => {
+      .then(response => response.json())
+      .then(({ token }) => {
         Auth.authenticateUser(token);
-        const locationState = this.context.router.route.location.state;
+        const { router } = this.context;
+        const locationState = router.route.location.state;
         const cameFromPath = locationState ? locationState.from : '/';
-        this.context.router.history.replace(cameFromPath);
+        router.history.replace(cameFromPath);
       });
   }
 
@@ -55,29 +61,30 @@ class LoginPage extends Component {
    */
   changeUser(event) {
     const field = event.target.name;
-    const user = this.state.user;
+    const { user } = this.state;
     user[field] = event.target.value;
 
     this.setState({ user });
   }
 
   render() {
+    const { errors, user } = this.state;
     return (
       <div className="container text-align-center">
         <h1>Login</h1>
         <SignInForm
           onSubmit={this.submitForm}
           onChange={this.changeUser}
-          errors={this.state.errors}
-          user={this.state.user}
+          errors={errors}
+          user={user}
         />
       </div>
-    )
+    );
   }
 }
 
 LoginPage.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };
 
 export default LoginPage;

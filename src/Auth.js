@@ -1,12 +1,11 @@
 class Auth {
-
   /**
    * Authenticate a user. Save a token string in Local Storage
    *
    * @param {string} token
    */
   static authenticateUser(token) {
-    localStorage.setItem('token', token);
+    window.localStorage.setItem('token', token);
   }
 
   /**
@@ -15,7 +14,7 @@ class Auth {
    * @returns {boolean}
    */
   static isUserAuthenticated() {
-    return localStorage.getItem('token') !== null;
+    return window.localStorage.getItem('token') !== null;
   }
 
   /**
@@ -23,7 +22,7 @@ class Auth {
    *
    */
   static deauthenticateUser() {
-    localStorage.removeItem('token');
+    window.localStorage.removeItem('token');
   }
 
   /**
@@ -33,7 +32,7 @@ class Auth {
    */
 
   static getToken() {
-    return localStorage.getItem('token');
+    return window.localStorage.getItem('token');
   }
 
 }
