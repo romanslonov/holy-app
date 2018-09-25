@@ -1,8 +1,7 @@
 /* eslint-disable no-param-reassign */
 const Sequelize = require('sequelize');
+const sequelize = require('../config/database');
 const bcryptService = require('../services/bcrypt');
-
-const sequelize = require('../../config/database');
 
 const hooks = {
   beforeCreate(user) {
@@ -10,9 +9,9 @@ const hooks = {
   },
 };
 
-const tableName = 'users';
+const tableName = 'user';
 
-const User = sequelize.define('User', {
+const User = sequelize.define('user', {
   id: {
     autoIncrement: true,
     primaryKey: true,
@@ -33,9 +32,13 @@ const User = sequelize.define('User', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  status: {
-    type: Sequelize.ENUM('active', 'inactive'),
-    defaultValue: 'active',
+  isActivated: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+  isVerified: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true,
   },
   role: {
     type: Sequelize.ENUM('admin', 'user'),

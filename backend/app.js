@@ -4,12 +4,13 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const morgan = require('morgan');
 const expressValidator = require('express-validator');
 
 /**
  * server configuration
  */
-const config = require('../config/');
+const config = require('./config/');
 const dbService = require('./services/db');
 const auth = require('./middlewares/auth');
 
@@ -25,6 +26,8 @@ dbService(environment, config.migrate).start();
 // allow cross origin requests
 // configure to only allow requests from certain origins
 app.use(cors());
+
+app.use(morgan('short'));
 
 // secure express app
 app.use(helmet({

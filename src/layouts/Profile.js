@@ -4,7 +4,7 @@ import ProfilePage from '../pages/Profile';
 import Navigation from '../components/navigation/Navigation';
 import AuthenticationChecker from '../components/Authentication';
 
-function Profile() {
+function ProfileLayout() {
   return (
     <div>
       <header>
@@ -12,11 +12,11 @@ function Profile() {
       </header>
       <main className="main">
         <Switch>
-          <Route path="/profile" component={AuthenticationChecker(ProfilePage)} />
+          <Route path="/admin" component={AuthenticationChecker(ProfilePage)} />
         </Switch>
       </main>
     </div>
   );
 }
 
-export default Profile;
+export default ProfileLayout;

@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Input from './Input';
+import Button from './Button';
 
-const RegisterForm = ({onSubmit, onChange, errors, user }) => (
+const RegisterForm = ({
+  onSubmit, onChange, errors, user,
+}) => (
   <div className="container">
     <form action="/" onSubmit={onSubmit}>
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
       <div>
-        <label htmlFor="name">Name</label>
-        <input
+        <Input
+          id="name"
           required
+          label="Name"
           name="name"
           onChange={onChange}
           value={user.name}
@@ -19,9 +24,10 @@ const RegisterForm = ({onSubmit, onChange, errors, user }) => (
       </div>
 
       <div>
-        <label htmlFor="email">Email</label>
-        <input
+        <Input
+          id="email"
           required
+          label="Email"
           name="email"
           onChange={onChange}
           value={user.email}
@@ -30,9 +36,10 @@ const RegisterForm = ({onSubmit, onChange, errors, user }) => (
       </div>
 
       <div>
-        <label htmlFor="password">Password</label>
-        <input
+        <Input
+          id="password"
           required
+          label="Password"
           type="password"
           name="password"
           onChange={onChange}
@@ -42,10 +49,10 @@ const RegisterForm = ({onSubmit, onChange, errors, user }) => (
       </div>
 
       <div>
-        <button type="submit">Create New Account</button>
+        <Button type="submit">Create New Account</Button>
       </div>
 
-      <div>Already have an account? <Link to={'/auth/login'}>Log in</Link></div>
+      <div>Already have an account? <Link to="/auth/login">Log in</Link></div>
     </form>
   </div>
 );
@@ -54,7 +61,7 @@ RegisterForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 export default RegisterForm;

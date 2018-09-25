@@ -13,6 +13,7 @@ const LoginForm = ({
 
       <div className="">
         <Input
+          id="email"
           label="Email"
           required
           name="email"
@@ -24,6 +25,7 @@ const LoginForm = ({
 
       <div className="">
         <Input
+          id="password"
           label="Password"
           required
           type="password"

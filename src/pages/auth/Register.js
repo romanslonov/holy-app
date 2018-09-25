@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RegisterForm from '../../components/RegisterForm';
-import request from "../../request";
-import Auth from "../../Auth";
+import request from '../../request';
+import Auth from '../../Auth';
 
 class RegisterPage extends Component {
   constructor(props, context) {
@@ -13,18 +13,20 @@ class RegisterPage extends Component {
       user: {
         email: '',
         name: '',
-        password: ''
-      }
+        password: '',
+      },
     };
 
     this.submitForm = this.submitForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
+
   componentDidMount() {
     if (Auth.isUserAuthenticated()) {
       this.context.router.history.replace('/');
     }
   }
+
   /**
    * Change the user object.
    *
@@ -47,14 +49,14 @@ class RegisterPage extends Component {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
-    request('http://localhost:80/auth/register/', {
+    request('http://localhost:9000/auth/register/', {
       method: 'POST',
       hasToken: false,
       fullPath: true,
       body: JSON.stringify(this.state.user),
     })
-      .then(response=> response.json())
-      .then(({token}) => {
+      .then(response => response.json())
+      .then(({ token }) => {
         Auth.authenticateUser(token);
         this.context.router.history.replace('/');
       });
@@ -71,12 +73,12 @@ class RegisterPage extends Component {
           user={this.state.user}
         />
       </div>
-    )
+    );
   }
 }
 
 RegisterPage.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };
 
 export default RegisterPage;

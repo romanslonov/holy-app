@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-import request from '../request';
+import request from '../../request';
 
 class FeedPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = ({ message: '', workspaces: [] });
+    this.state = ({ workspaces: [] });
   }
 
   async componentDidMount() {
-    const message = await request('/')
-      .then(response => response.json())
-      .then(response => response.message);
     const workspaces = await request('/workspaces/')
       .then(response => response.json())
       .then(response => response.workspaces);
-    this.setState({ message, workspaces });
+    this.setState({ workspaces });
   }
 
   render() {
-    const { message, workspaces } = this.state;
+    const { workspaces } = this.state;
     return (
       <div>
-        <h2>This is secret message from API: {message}</h2>
+        <h2>List of workspaces</h2>
         <p>Only for authenticated users</p>
         <ul>
           {workspaces.map(({ id, name }) => (

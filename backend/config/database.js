@@ -49,6 +49,7 @@ switch (process.env.NODE_ENV) {
           min: 0,
           idle: 10000,
         },
+        logging: false,
       },
     );
 }

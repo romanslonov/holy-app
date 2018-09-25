@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-const Auth = (props) => {
+const AuthLayout = (props) => {
   const { classes } = props;
   return (
     <main className={classes.root}>
@@ -26,8 +26,8 @@ const Auth = (props) => {
   );
 };
 
-Auth.propTypes = {
+AuthLayout.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default injectSheet(styles)(Auth);
+export default injectSheet(styles)(AuthLayout);

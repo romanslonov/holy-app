@@ -38,7 +38,7 @@ class LoginPage extends Component {
 
     const { user } = this.state;
 
-    request('http://localhost:80/auth/login/', {
+    request('http://localhost:9000/auth/login/', {
       method: 'POST',
       hasToken: false,
       fullPath: true,

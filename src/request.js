@@ -1,6 +1,7 @@
 import Auth from './Auth';
 import handleBadResponse from './utils/handleBadResponse';
-const API_ROOT = 'http://localhost:80/api/v1';
+
+const API_ROOT = 'http://localhost:9000/api/v1';
 
 export default function request(_path, _options) {
   const options = Object.assign({

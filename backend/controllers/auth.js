@@ -1,6 +1,6 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const bcryptService = require('../services/bcrypt');
-const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
 };
 
 exports.validate = async (req, res) => {
-  const token = req.headers['authorization'].split(' ')[1];
+  const token = req.headers.authorization.split(' ')[1];
 
   try {
     jwt.verify(token, 'secret');
