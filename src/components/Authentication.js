@@ -31,7 +31,7 @@ const Authorization = (WrappedComponent, allowedRoles = ['user', 'admin']) => cl
           onSetUser(user);
           onAuthenticateUser();
           this.setState({ loading: false });
-        }, 400);
+        }, 500);
       });
   }
 
@@ -47,9 +47,7 @@ const Authorization = (WrappedComponent, allowedRoles = ['user', 'admin']) => cl
       if (!allowedRoles.includes(user.role)) {
         return <Redirect to="/" />;
       }
-      return user.isActivated
-        ? <WrappedComponent user={user} {...this.props} />
-        : <Redirect to={{ pathname: '/workspaces/create/', state: { from: location } }} />;
+      return <WrappedComponent user={user} {...this.props} />;
     }
 
     return <Redirect to={{ pathname: '/auth/login/', state: { from: location } }} />;
