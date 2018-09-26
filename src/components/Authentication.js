@@ -3,8 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Auth from '../Auth';
-import request from '../request';
-import { setUser, authenticateUser } from '../actions';
+import { fetchProfile } from '../actions';
 
 /**
  * Authorization High Order Component. Handles whether or not the user is allowed to see the page.
@@ -22,26 +21,21 @@ const Authorization = (WrappedComponent, allowedRoles = ['user', 'admin']) => cl
   }
 
   componentWillMount() {
-    this.setState({ loading: true });
-    request('/profile/')
-      .then(response => response.json())
-      .then(({ profile: user }) => {
-        const { onSetUser, onAuthenticateUser } = this.props;
-        setTimeout(() => {
-          onSetUser(user);
-          onAuthenticateUser();
-          this.setState({ loading: false });
-        }, 500);
-      });
+    const { isAuthenticated, isFetched, onFetchProfile } = this.props;
+
+    if (isAuthenticated && !isFetched) {
+      this.setState({ loading: true });
+      onFetchProfile().then(() => this.setState({ loading: false }));
+    }
   }
 
   render() {
-    const { location, user } = this.props;
+    const { location, user, isFetched } = this.props;
     const { loading } = this.state;
     const isUserAuthenticated = Auth.isUserAuthenticated();
 
     if (isUserAuthenticated) {
-      if (loading) {
+      if (loading || !isFetched) {
         return <div>App is loading...</div>;
       }
       if (!allowedRoles.includes(user.role)) {
@@ -57,15 +51,11 @@ const Authorization = (WrappedComponent, allowedRoles = ['user', 'admin']) => cl
 const mapStateToProps = state => ({
   user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated,
+  isFetched: state.auth.isFetched,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSetUser: (user) => {
-    dispatch(setUser(user));
-  },
-  onAuthenticateUser: () => {
-    dispatch(authenticateUser());
-  },
+  onFetchProfile: () => dispatch(fetchProfile()),
 });
 
 const composedAuthorization = compose(

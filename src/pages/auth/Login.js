@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import SignInForm from '../../components/LoginForm';
 import Auth from '../../Auth';
-import request from '../../request';
+import { login } from '../../actions';
 
 class LoginPage extends Component {
   constructor(props, context) {
@@ -21,10 +22,10 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    if (Auth.isUserAuthenticated()) {
-      const { router } = this.context;
-      router.history.replace('/');
-    }
+    // if (Auth.isUserAuthenticated()) {
+    //   const { router } = this.context;
+    //   router.history.replace('/');
+    // }
   }
 
   /**
@@ -36,22 +37,15 @@ class LoginPage extends Component {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
-    const { user } = this.state;
+    const { user: credentials } = this.state;
+    const { onLogin } = this.props;
 
-    request('http://localhost:9000/auth/login/', {
-      method: 'POST',
-      hasToken: false,
-      fullPath: true,
-      body: JSON.stringify(user),
-    })
-      .then(response => response.json())
-      .then(({ token }) => {
-        Auth.authenticateUser(token);
-        const { router } = this.context;
-        const locationState = router.route.location.state;
-        const cameFromPath = locationState ? locationState.from : '/';
-        router.history.replace(cameFromPath);
-      });
+    onLogin(credentials).then(() => {
+      const { router } = this.context;
+      const locationState = router.route.location.state;
+      const cameFromPath = locationState ? locationState.from : '/';
+      router.history.replace(cameFromPath);
+    });
   }
 
   /**
@@ -87,4 +81,17 @@ LoginPage.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
-export default LoginPage;
+LoginPage.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onLogin: credentials => dispatch(login(credentials)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

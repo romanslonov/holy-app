@@ -34,7 +34,7 @@ exports.login = async (req, res) => {
         return res.status(200).json({ token, user });
       }
 
-      return res.status(401).json({ message: 'Unauthorized' });
+      return res.status(400).json({ message: 'Email or password is wrong' });
     } catch (err) {
       return res.status(500).json({ message: 'Internal server error' });
     }

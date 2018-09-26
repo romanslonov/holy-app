@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import InjectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import Auth from '../../Auth';
+import { logout } from '../../actions';
 
 const styles = theme => ({
   root: {
@@ -34,22 +34,24 @@ class UserMenu extends Component {
   }
 
   deauthenticateUser() {
-    Auth.deauthenticateUser();
+    const { onLogout } = this.props;
     const { router } = this.context;
+    onLogout();
     router.history.replace('/auth/login/');
   }
 
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, isFetched } = this.props;
     return (
       <div className={classes.root}>
-        <div className={classes.item}>
-          {
-            user.name
-              ? <Link className={classes.link} to="/profile">Hello, {user.name}!</Link>
-              : <div className={classes.skeleton} />
-          }
-        </div>
+        {isFetched
+          ? (
+            <div className={classes.item}>
+              <Link className={classes.link} to="/profile">Hello, {user.name}!</Link>
+            </div>
+          )
+          : <div className={classes.skeleton} />
+        }
         {user.role === 'admin' && (
           <div className={classes.item}>
             <Link className={classes.link} to="/admin">Manage</Link>
@@ -70,15 +72,22 @@ UserMenu.contextTypes = {
 UserMenu.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  onLogout: PropTypes.func.isRequired,
+  isFetched: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  isFetched: state.auth.isFetched,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
+const mapDispatchToProps = dispatch => ({
+  onLogout: () => dispatch(logout()),
+});
+
 const composedUserMenu = compose(
-  connect(mapStateToProps, null),
+  connect(mapStateToProps, mapDispatchToProps),
   InjectSheet(styles),
 )(UserMenu);
 

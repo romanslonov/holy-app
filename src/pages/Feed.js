@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import request from '../request';
+// import request from '../request';
 
 class FeedPage extends Component {
   constructor(props) {
@@ -8,15 +8,15 @@ class FeedPage extends Component {
     this.state = ({ message: '', workspaces: [] });
   }
 
-  async componentDidMount() {
-    const message = await request('/')
-      .then(response => response.json())
-      .then(response => response.message);
-    const workspaces = await request('/workspaces/')
-      .then(response => response.json())
-      .then(response => response.workspaces);
-    this.setState({ message, workspaces });
-  }
+  // async componentDidMount() {
+  //   const message = await request('/')
+  //     .then(response => response.json())
+  //     .then(response => response.message);
+  //   const workspaces = await request('/workspaces/')
+  //     .then(response => response.json())
+  //     .then(response => response.workspaces);
+  //   this.setState({ message, workspaces });
+  // }
 
   render() {
     const { message, workspaces } = this.state;

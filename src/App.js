@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import DashboardLayout from './layouts/Dashboard';
 import AuthLayout from './layouts/Auth';
 import theme from './theme';
+import history from './history';
 
 const styles = {
   '@global': {
@@ -24,7 +25,7 @@ const App = (props) => {
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
-        <Router>
+        <Router history={history}>
           <Switch>
             <Route path="/auth" component={AuthLayout} />
             <Route path="/" component={DashboardLayout} />

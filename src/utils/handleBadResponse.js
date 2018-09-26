@@ -1,3 +1,4 @@
+import history from '../history';
 import Auth from '../Auth';
 
 /*
@@ -5,15 +6,17 @@ import Auth from '../Auth';
  */
 export default function handleBadResponse(response) {
   const { status } = response;
-  const { console, location } = window;
+  const { console } = window;
   switch (status) {
     case 400:
-      console.log(response);
+      response.json().then((resp) => {
+        console.log(resp.message);
+      });
       break;
     case 401:
       Auth.deauthenticateUser();
-      location.reload(true);
-      console.log(response);
+      history.replace('/');
+      console.log('Authentication failed');
       break;
     case 404:
       console.log(response);
