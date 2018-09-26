@@ -3,7 +3,12 @@ const User = require('../models/User');
 exports.getProfile = async (req, res) => {
   try {
     const { id } = req.user;
-    const profile = await User.findOne({ where: { id } });
+    const profile = await User.findOne({
+      where: { id },
+      attributes: {
+        exclude: ['password', 'createdAt', 'updatedAt'],
+      },
+    });
 
     return res.status(200).json({ profile });
   } catch (err) {
