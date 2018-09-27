@@ -4,8 +4,9 @@ import { Router, Switch, Route } from 'react-router-dom';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import DashboardLayout from './layouts/Dashboard';
 import AuthLayout from './layouts/Auth';
-import theme from './theme';
 import history from './history';
+import theme from './theme';
+import ToastContainer from './components/ToastContainer';
 
 const styles = {
   '@global': {
@@ -23,16 +24,19 @@ const styles = {
 const App = (props) => {
   const { classes } = props;
   return (
-    <div className={classes.root}>
-      <ThemeProvider theme={theme}>
-        <Router history={history}>
-          <Switch>
-            <Route path="/auth" component={AuthLayout} />
-            <Route path="/" component={DashboardLayout} />
-          </Switch>
-        </Router>
-      </ThemeProvider>
-    </div>
+    <React.Fragment>
+      <ToastContainer />
+      <div className={classes.root}>
+        <ThemeProvider theme={theme}>
+          <Router history={history}>
+            <Switch>
+              <Route path="/auth" component={AuthLayout} />
+              <Route path="/" component={DashboardLayout} />
+            </Switch>
+          </Router>
+        </ThemeProvider>
+      </div>
+    </React.Fragment>
   );
 };
 

@@ -21,7 +21,7 @@ function DashboardLayout() {
         <Container>
           <Switch>
             {/* Admin routes */}
-            <Route exact path="/admin" component={AuthenticationChecker(AdminLayout, ['admin'])} />
+            <Route path="/admin" component={AuthenticationChecker(AdminLayout, ['admin'])} />
             {/* Workspaces routes */}
             <Route exact path="/workspaces" component={AuthenticationChecker(WorkspacesPage)} />
             <Route exact path="/workspaces/create" component={CreateWorkspacePage} />

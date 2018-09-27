@@ -19,7 +19,9 @@ const styles = {
   },
 };
 
-const Button = ({ classes, disabled, children, type }) => (
+const Button = ({
+  classes, disabled, children, type,
+}) => (
   <button
     type={type}
     disabled={disabled}

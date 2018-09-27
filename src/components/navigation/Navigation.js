@@ -31,7 +31,6 @@ const styles = theme => ({
 });
 
 const Navigation = (props) => {
-  console.log('Navigation was rendered!');
   const { classes } = props;
   return (
     <div className={classes.root}>

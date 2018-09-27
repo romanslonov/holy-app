@@ -4,6 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import LoginPage from '../pages/auth/Login';
 import RegisterPage from '../pages/auth/Register';
+import AuthenticationChecker from '../components/Authentication';
+import NotFoundPage from '../pages/NotFound';
 
 const styles = {
   root: {
@@ -21,6 +23,8 @@ const AuthLayout = (props) => {
       <Switch>
         <Route path="/auth/login" component={LoginPage} />
         <Route path="/auth/register" component={RegisterPage} />
+        {/* 404 route */}
+        <Route component={AuthenticationChecker(NotFoundPage)} />
       </Switch>
     </main>
   );

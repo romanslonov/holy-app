@@ -22,10 +22,10 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    // if (Auth.isUserAuthenticated()) {
-    //   const { router } = this.context;
-    //   router.history.replace('/');
-    // }
+    if (Auth.isUserAuthenticated()) {
+      const { router } = this.context;
+      router.history.replace('/');
+    }
   }
 
   /**

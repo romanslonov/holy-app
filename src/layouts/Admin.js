@@ -3,6 +3,8 @@ import { Route, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import OverviewPage from '../pages/admin/Overview';
 import InvitationsPage from '../pages/admin/Invitations';
+import AuthenticationChecker from '../components/Authentication';
+import NotFoundPage from '../pages/NotFound';
 
 function AdminLayout(props) {
   return (
@@ -17,7 +19,9 @@ function AdminLayout(props) {
       </ul>
       <Switch>
         <Route exact path="/admin" render={() => <OverviewPage {...props} />} />
-        <Route path="/admin/invitations" render={() => <InvitationsPage {...props} />} />
+        <Route exact path="/admin/invitations" render={() => <InvitationsPage {...props} />} />
+        {/* 404 route */}
+        <Route component={AuthenticationChecker(NotFoundPage)} />
       </Switch>
     </React.Fragment>
   );

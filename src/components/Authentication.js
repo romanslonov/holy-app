@@ -20,7 +20,7 @@ const Authorization = (WrappedComponent, allowedRoles = ['user', 'admin']) => cl
     this.state = { loading: false, user: {} };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { isAuthenticated, isFetched, onFetchProfile } = this.props;
 
     if (isAuthenticated && !isFetched) {
