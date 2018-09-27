@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
+import injectSheet from 'react-jss';
 import FeedPage from '../pages/Feed';
 import ProfilePage from '../pages/Profile';
 import AdminLayout from './Admin';
@@ -11,13 +13,20 @@ import AuthenticationChecker from '../components/Authentication';
 import Container from '../components/Container';
 import NotFoundPage from '../pages/NotFound';
 
-function DashboardLayout() {
+const styles = {
+  root: {
+    backgroundColor: '#f5f7fa',
+  },
+};
+
+function DashboardLayout(props) {
+  const { classes } = props;
   return (
     <React.Fragment>
       <header>
         <Navigation />
       </header>
-      <main className="main">
+      <main className={classes.root}>
         <Container>
           <Switch>
             {/* Admin routes */}
@@ -39,4 +48,8 @@ function DashboardLayout() {
   );
 }
 
-export default DashboardLayout;
+DashboardLayout.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default injectSheet(styles)(DashboardLayout);

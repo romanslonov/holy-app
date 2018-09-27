@@ -64,15 +64,12 @@ class LoginPage extends Component {
   render() {
     const { errors, user } = this.state;
     return (
-      <div className="container text-align-center">
-        <h1>Login</h1>
-        <SignInForm
-          onSubmit={this.submitForm}
-          onChange={this.changeUser}
-          errors={errors}
-          user={user}
-        />
-      </div>
+      <SignInForm
+        onSubmit={this.submitForm}
+        onChange={this.changeUser}
+        errors={errors}
+        user={user}
+      />
     );
   }
 }
@@ -93,5 +90,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onLogin: credentials => dispatch(login(credentials)),
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

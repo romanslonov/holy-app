@@ -61,15 +61,12 @@ class RegisterPage extends Component {
   render() {
     const { errors, user } = this.state;
     return (
-      <div className="container text-align-center">
-        <h1>Register</h1>
-        <RegisterForm
-          onSubmit={this.submitForm}
-          onChange={this.changeUser}
-          errors={errors}
-          user={user}
-        />
-      </div>
+      <RegisterForm
+        onSubmit={this.submitForm}
+        onChange={this.changeUser}
+        errors={errors}
+        user={user}
+      />
     );
   }
 }

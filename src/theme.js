@@ -5,5 +5,7 @@ module.exports = {
   shape: {
     borderRadius: 4,
   },
-  pallete: {},
+  pallete: {
+    primary: '#4f46ff',
+  },
 };

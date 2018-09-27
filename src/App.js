@@ -12,7 +12,6 @@ const styles = {
   '@global': {
     body: {
       margin: 0,
-      backgroundColor: '#f5f7fa',
       fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
     },
   },

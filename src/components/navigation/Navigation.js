@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import InjectSheet from 'react-jss';
 import UserMenu from './UserMenu';
-import logo from './logo.svg';
+import logo from '../../logo.svg';
 
 const styles = theme => ({
   root: {
