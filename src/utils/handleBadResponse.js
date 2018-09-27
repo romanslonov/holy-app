@@ -1,6 +1,5 @@
 /* eslint-disable import/no-cycle */
 import history from '../history';
-import Auth from '../Auth';
 import store from '../store';
 import { errorToast, logout } from '../actions';
 
@@ -17,7 +16,6 @@ export default function handleBadResponse(response) {
       });
       break;
     case 401:
-      Auth.deauthenticateUser();
       store.dispatch(logout());
       store.dispatch(errorToast('Authentication failed'));
       history.replace('/');
