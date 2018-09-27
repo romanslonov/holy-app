@@ -56,6 +56,23 @@ export function login(credentials) {
   };
 }
 
+export function register(newUser) {
+  return (dispatch) => {
+    dispatch(loginRequest());
+    return request('http://localhost:9000/auth/register/', {
+      method: 'POST',
+      hasToken: false,
+      fullPath: true,
+      body: JSON.stringify(newUser),
+    })
+      .then(response => response.json())
+      .then(({ user, token }) => {
+        Auth.authenticateUser(token);
+        dispatch(loginSuccess({ user, token }));
+      });
+  };
+}
+
 export function fetchProfile() {
   return dispatch => request('/profile/')
     .then(response => response.json())

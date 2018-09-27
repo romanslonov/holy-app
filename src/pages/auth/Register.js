@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import RegisterForm from '../../components/RegisterForm';
-import request from '../../request';
 import Auth from '../../Auth';
+import { register } from '../../actions';
 
 class RegisterPage extends Component {
   constructor(props, context) {
@@ -23,7 +24,8 @@ class RegisterPage extends Component {
 
   componentDidMount() {
     if (Auth.isUserAuthenticated()) {
-      this.context.router.history.replace('/');
+      const { router } = this.context;
+      router.history.replace('/');
     }
   }
 
@@ -34,7 +36,7 @@ class RegisterPage extends Component {
    */
   changeUser(event) {
     const field = event.target.name;
-    const user = this.state.user;
+    const { user } = this.state;
     user[field] = event.target.value;
 
     this.setState({ user });
@@ -49,28 +51,23 @@ class RegisterPage extends Component {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
-    request('http://localhost:9000/auth/register/', {
-      method: 'POST',
-      hasToken: false,
-      fullPath: true,
-      body: JSON.stringify(this.state.user),
-    })
-      .then(response => response.json())
-      .then(({ token }) => {
-        Auth.authenticateUser(token);
-        this.context.router.history.replace('/');
-      });
+    const { user } = this.state;
+    const { router } = this.context;
+    const { onRegister } = this.props;
+
+    onRegister(user).then(() => router.history.replace('/'));
   }
 
   render() {
+    const { errors, user } = this.state;
     return (
       <div className="container text-align-center">
         <h1>Register</h1>
         <RegisterForm
           onSubmit={this.submitForm}
           onChange={this.changeUser}
-          errors={this.state.errors}
-          user={this.state.user}
+          errors={errors}
+          user={user}
         />
       </div>
     );
@@ -81,4 +78,8 @@ RegisterPage.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
-export default RegisterPage;
+RegisterPage.propTypes = {
+  onRegister: PropTypes.func.isRequired,
+};
+
+export default connect(null, ({ onRegister: register }))(RegisterPage);
