@@ -13,11 +13,13 @@ import AuthenticationChecker from '../components/Authentication';
 import Container from '../components/Container';
 import NotFoundPage from '../pages/NotFound';
 
-const styles = {
-  root: {
+const styles = theme => ({
+  main: {
     backgroundColor: '#f5f7fa',
+    flexGrow: '1',
+    padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit * 2}px`,
   },
-};
+});
 
 function DashboardLayout(props) {
   const { classes } = props;
@@ -26,7 +28,7 @@ function DashboardLayout(props) {
       <header>
         <Navigation />
       </header>
-      <main className={classes.root}>
+      <main className={classes.main}>
         <Container>
           <Switch>
             {/* Admin routes */}

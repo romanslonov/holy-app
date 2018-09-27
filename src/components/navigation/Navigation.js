@@ -7,11 +7,14 @@ import logo from '../../logo.svg';
 
 const styles = theme => ({
   root: {
+    position: 'relative',
+    zIndex: '1',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: 'white',
-    padding: `${theme.spacing.unit * 6}px`,
+    height: '70px',
+    padding: `0 ${theme.spacing.unit * 6}px`,
     boxShadow: '0px 4px 6px 0px rgba(42, 56, 68, 0.05)',
   },
   navLink: {

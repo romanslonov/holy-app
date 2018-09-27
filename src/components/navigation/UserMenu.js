@@ -22,7 +22,7 @@ const styles = theme => ({
     textDecoration: 'none',
   },
   item: {
-    marginLeft: '8px',
+    marginLeft: '16px',
   },
 });
 
@@ -47,7 +47,7 @@ class UserMenu extends Component {
         {isFetched
           ? (
             <div className={classes.item}>
-              <Link className={classes.link} to="/profile">Hello, {user.name}!</Link>
+              <Link className={classes.link} to="/profile">Hello, <strong>{user.name}</strong>!</Link>
             </div>
           )
           : <div className={classes.skeleton} />

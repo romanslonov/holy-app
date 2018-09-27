@@ -33,7 +33,7 @@ const styles = theme => ({
 });
 
 const Input = ({
-  classes, id, name, label, hideLabel, type, onChange, placeholder, disabled, required,
+  autoFocus, classes, id, name, label, hideLabel, type, onChange, placeholder, disabled, required,
 }) => {
   return (
     <div className={classes.root}>
@@ -44,6 +44,7 @@ const Input = ({
         {label}
       </label>
       <input
+        autoFocus={autoFocus}
         required={required}
         name={name}
         className={classes.input}
@@ -68,6 +69,7 @@ Input.propTypes = {
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   hideLabel: PropTypes.bool,
+  autoFocus: PropTypes.bool,
 };
 
 Input.defaultProps = {
@@ -76,6 +78,7 @@ Input.defaultProps = {
   disabled: false,
   required: false,
   hideLabel: false,
+  autoFocus: false,
 };
 
 export default injectSheet(styles)(Input);
