@@ -2,7 +2,7 @@
 import history from '../history';
 import Auth from '../Auth';
 import store from '../store';
-import { errorToast } from '../actions';
+import { errorToast, logout } from '../actions';
 
 /*
  * Handle response from API
@@ -18,8 +18,9 @@ export default function handleBadResponse(response) {
       break;
     case 401:
       Auth.deauthenticateUser();
-      history.replace('/');
+      store.dispatch(logout());
       store.dispatch(errorToast('Authentication failed'));
+      history.replace('/');
       break;
     case 404:
       console.log(response);
