@@ -9,6 +9,16 @@ const hooks = {
   },
 };
 
+const defaultScope = {
+  attributes: { exclude: ['password'] },
+};
+
+const scopes = {
+  withPassword: {
+    attributes: { exclude: [] },
+  },
+};
+
 const tableName = 'user';
 
 const User = sequelize.define('user', {
@@ -44,6 +54,8 @@ const User = sequelize.define('user', {
     type: Sequelize.ENUM('admin', 'user'),
     defaultValue: 'user',
   },
-}, { hooks, tableName });
+}, {
+  hooks, tableName, defaultScope, scopes,
+});
 
 module.exports = User;

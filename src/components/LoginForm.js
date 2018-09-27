@@ -41,7 +41,6 @@ const LoginForm = ({
           label="Email"
           hideLabel
           required
-          autoFocus
           name="email"
           placeholder="Email address"
           onChange={onChange}

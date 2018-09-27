@@ -41,7 +41,6 @@ const RegisterForm = ({
           required
           label="Name"
           hideLabel
-          autoFocus
           name="name"
           placeholder="Full name"
           onChange={onChange}

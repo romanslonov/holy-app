@@ -3,15 +3,11 @@ const User = require('../models/User');
 exports.getProfile = async (req, res) => {
   try {
     const { id } = req.user;
-    const profile = await User.findOne({
-      where: { id },
-      attributes: {
-        exclude: ['password', 'createdAt', 'updatedAt'],
-      },
-    });
+    const user = await User.findOne({ where: { id } });
 
-    return res.status(200).json({ profile });
+    return res.status(200).json({ profile: user });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };

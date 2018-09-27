@@ -22,7 +22,7 @@ exports.login = async (req, res) => {
 
   if (email && password) {
     try {
-      const user = await User.findOne({ where: { email } });
+      const user = await User.scope('withPassword').findOne({ where: { email } });
 
       if (!user) {
         return res.status(400).json({ message: 'Email or password is wrong' });
@@ -31,11 +31,14 @@ exports.login = async (req, res) => {
       if (bcryptService.comparePassword(password, user.password)) {
         const token = jwt.sign({ id: user.id }, 'secret');
 
+        delete user.dataValues.password;
+
         return res.status(200).json({ token, user });
       }
 
       return res.status(400).json({ message: 'Email or password is wrong' });
     } catch (err) {
+      console.log(err);
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
