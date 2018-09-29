@@ -13,7 +13,7 @@ const RedirectResolver = (props) => {
     children, user, location,
   } = props;
 
-  if (!user.isVerified && location.pathname !== '/dashboard/confirmation') {
+  if (!user.isVerified && !location.pathname.includes('/dashboard/confirmation')) {
     return <Redirect to="/dashboard/confirmation" />;
   }
 

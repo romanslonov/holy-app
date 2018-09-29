@@ -6,6 +6,7 @@ import DashboardLayout from './layouts/Dashboard';
 import AuthLayout from './layouts/Auth';
 import history from './history';
 import theme from './theme';
+import NotFound from './pages/NotFound';
 import ToastContainer from './components/ToastContainer';
 
 const styles = {
@@ -33,6 +34,7 @@ const App = (props) => {
             <Switch>
               <Route path="/dashboard" component={DashboardLayout} />
               <Route path="/auth" component={AuthLayout} />
+              <Route component={NotFound} />
             </Switch>
           </Router>
         </ThemeProvider>

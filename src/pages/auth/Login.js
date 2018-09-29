@@ -24,7 +24,7 @@ class LoginPage extends Component {
   componentDidMount() {
     if (Auth.isUserAuthenticated()) {
       const { router } = this.context;
-      router.history.replace('/');
+      router.history.replace('/dashboard');
     }
   }
 
@@ -43,7 +43,7 @@ class LoginPage extends Component {
     onLogin(credentials).then(() => {
       const { router } = this.context;
       const locationState = router.route.location.state;
-      const cameFromPath = locationState ? locationState.from : '/';
+      const cameFromPath = locationState ? locationState.from : '/dashboard';
       router.history.replace(cameFromPath);
     });
   }

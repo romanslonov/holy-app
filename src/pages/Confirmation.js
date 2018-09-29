@@ -7,6 +7,7 @@ import { compose } from 'redux';
 import request from '../request';
 import Button from '../components/Button';
 import Box from '../components/Box';
+import { verifyUser } from '../actions';
 
 const styles = {
   root: {
@@ -25,14 +26,17 @@ class ConfirmationPage extends Component {
   }
 
   componentDidMount() {
-    const { isVerified } = this.props;
+    const { isVerified, onVerifyUser } = this.props;
     if (isVerified) {
       const { router } = this.context;
-      router.history.replace('/');
+      router.history.replace('/dashboard');
     } else {
       const token = this.props.match.params.token;
 
-      if (token) this.confirmUserEmail(token);
+      if (token) {
+        this.confirmUserEmail(token)
+          .then(() => onVerifyUser());
+      }
     }
   }
 
@@ -44,12 +48,12 @@ class ConfirmationPage extends Component {
     })
       .then(() => {
         const { router } = this.context;
-        router.history.replace('/');
+        router.history.replace('/dashboard');
       });
   }
 
-  resend() {
-    return request('http://localhost:9000/auth/confirmation', {
+  async resend() {
+    await request('http://localhost:9000/auth/confirmation', {
       method: 'PUT',
       hasToken: false,
       fullPath: true,
@@ -66,7 +70,7 @@ class ConfirmationPage extends Component {
           <div className={classes.root}>
             <h1>Glad to see you! <span aria-label="Emoji clap" role="img">👋</span></h1>
             <p>To start using the app please confirm your email.</p>
-            <Button onClick={this.resend}>Resend</Button>
+            <Button type="button" onClick={this.resend}>Resend</Button>
           </div>
         </Box>
       );
@@ -88,8 +92,12 @@ const mapStateToProps = state => ({
   isVerified: state.auth.user.isVerified,
 });
 
+const mapDispatchToProps = dispatch => ({
+  onVerifyUser: () => dispatch(verifyUser()),
+});
+
 const composedConfirmationPage = compose(
-  connect(mapStateToProps, null),
+  connect(mapStateToProps, mapDispatchToProps),
   injectSheet(styles),
 )(ConfirmationPage);
 

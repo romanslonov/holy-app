@@ -9,6 +9,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
 
+export const USER_VERIFY = 'USER_VERIFY';
+
 export const PROFILE_GET = 'PROFILE_GET';
 
 /*
@@ -29,6 +31,10 @@ export function loginError() {
 export function logout() {
   Auth.deauthenticateUser();
   return { type: LOGOUT };
+}
+
+export function verifyUser() {
+  return { type: USER_VERIFY };
 }
 
 export function getProfile(profile) {

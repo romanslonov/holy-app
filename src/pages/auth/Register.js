@@ -25,7 +25,7 @@ class RegisterPage extends Component {
   componentDidMount() {
     if (Auth.isUserAuthenticated()) {
       const { router } = this.context;
-      router.history.replace('/');
+      router.history.replace('/dashboard');
     }
   }
 
@@ -55,7 +55,7 @@ class RegisterPage extends Component {
     const { router } = this.context;
     const { onRegister } = this.props;
 
-    onRegister(user).then(() => router.history.replace('/'));
+    onRegister(user).then(() => router.history.replace('/dashboard'));
   }
 
   render() {
