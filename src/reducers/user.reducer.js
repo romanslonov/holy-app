@@ -1,5 +1,5 @@
 import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, GET_PROFILE, LOGIN_ERROR,
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, PROFILE_GET, LOGIN_ERROR,
 } from '../actions';
 import Auth from '../Auth';
 
@@ -37,10 +37,11 @@ export default (state = initialState, action) => {
       return {
         ...state, user: {}, token: null, isFetched: false, isAuthenticated: false,
       };
-    case GET_PROFILE:
+    case PROFILE_GET:
       return {
         ...state,
         user: action.profile,
+        isFetching: false,
         isFetched: true,
       };
     default:

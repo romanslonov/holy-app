@@ -48,7 +48,7 @@ const User = sequelize.define('user', {
   },
   isVerified: {
     type: Sequelize.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
   },
   role: {
     type: Sequelize.ENUM('admin', 'user'),

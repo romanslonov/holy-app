@@ -47,14 +47,14 @@ class UserMenu extends Component {
         {isFetched
           ? (
             <div className={classes.item}>
-              <Link className={classes.link} to="/profile">Hello, <strong>{user.name}</strong>!</Link>
+              <Link className={classes.link} to="/dashboard/profile">Hello, <strong>{user.name}</strong>!</Link>
             </div>
           )
           : <div className={classes.skeleton} />
         }
         {user.role === 'admin' && (
           <div className={classes.item}>
-            <Link className={classes.link} to="/admin">Manage</Link>
+            <Link className={classes.link} to="/dashboard/admin">Manage</Link>
           </div>
         )}
         <div className={classes.item}>

@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import InjectSheet from 'react-jss';
 import Button from '../../components/Button';
+import Box from '../../components/Box';
 import Input from '../../components/Input';
 import request from '../../request';
+
+const styles = theme => ({
+  root: {
+    textAlign: 'center',
+  },
+  form: {
+    maxWidth: '320px',
+    margin: '0 auto',
+  },
+  button: {
+    marginTop: `${theme.spacing.unit * 4}px`,
+  },
+});
 
 class Create extends Component {
   constructor(props) {
@@ -41,14 +56,20 @@ class Create extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
-        <h2>Create your first workspace!</h2>
-        <form onSubmit={this.createWorkspace}>
-          <Input id="name" label="Name" required type="text" name="name" onChange={this.handleChange} />
-          <Button type="submit">Create workspace</Button>
-        </form>
-      </div>
+      <Box>
+        <div className={classes.root}>
+          <h2>Create workspace</h2>
+          <p>Or get invite by your team to start working</p>
+          <form className={classes.form} onSubmit={this.createWorkspace}>
+            <Input hideLabel placeholder="Workspace name" id="name" label="Name" required type="text" name="name" onChange={this.handleChange} />
+            <div className={classes.button}>
+              <Button type="submit">Create workspace</Button>
+            </div>
+          </form>
+        </div>
+      </Box>
     );
   }
 }
@@ -57,4 +78,8 @@ Create.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
-export default Create;
+Create.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default InjectSheet(styles)(Create);

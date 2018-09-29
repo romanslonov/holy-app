@@ -31,8 +31,8 @@ const App = (props) => {
         <ThemeProvider theme={theme}>
           <Router history={history}>
             <Switch>
+              <Route path="/dashboard" component={DashboardLayout} />
               <Route path="/auth" component={AuthLayout} />
-              <Route path="/" component={DashboardLayout} />
             </Switch>
           </Router>
         </ThemeProvider>

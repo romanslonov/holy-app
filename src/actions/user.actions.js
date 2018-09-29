@@ -9,7 +9,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
 
-export const GET_PROFILE = 'GET_PROFILE';
+export const PROFILE_GET = 'PROFILE_GET';
 
 /*
  * Actions generators
@@ -32,7 +32,7 @@ export function logout() {
 }
 
 export function getProfile(profile) {
-  return { type: GET_PROFILE, profile };
+  return { type: PROFILE_GET, profile };
 }
 
 export function login(credentials) {

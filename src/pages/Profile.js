@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const Profile = ({ user }) => (
   <div className="container text-align-center">
@@ -12,4 +13,4 @@ Profile.propTypes = {
 };
 
 
-export default Profile;
+export default connect(state => ({ user: state.auth.user }))(Profile);

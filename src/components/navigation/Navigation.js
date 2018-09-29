@@ -37,13 +37,13 @@ const Navigation = (props) => {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <Link to="/">
+      <Link to="/dashboard">
         <img src={logo} alt="Logotype" />
       </Link>
       <div>
-        <NavLink exact className={classes.navLink} to="/">Feed</NavLink>
-        <NavLink className={classes.navLink} to="/boards">Boards</NavLink>
-        <NavLink className={classes.navLink} to="/team">Team</NavLink>
+        <NavLink exact className={classes.navLink} to="/dashboard">Feed</NavLink>
+        <NavLink className={classes.navLink} to="/dashboard/boards">Boards</NavLink>
+        <NavLink className={classes.navLink} to="/dashboard/team">Team</NavLink>
       </div>
       <UserMenu />
     </div>

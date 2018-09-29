@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ProfilePage from '../pages/Profile';
 import Navigation from '../components/navigation/Navigation';
-import AuthenticationChecker from '../components/Authentication';
 
 function ProfileLayout() {
   return (
@@ -12,7 +11,7 @@ function ProfileLayout() {
       </header>
       <main className="main">
         <Switch>
-          <Route path="/admin" component={AuthenticationChecker(ProfilePage)} />
+          <Route path="/dashboard/profile" component={ProfilePage} />
         </Switch>
       </main>
     </div>
