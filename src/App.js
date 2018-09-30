@@ -8,6 +8,7 @@ import history from './history';
 import theme from './theme';
 import NotFound from './pages/NotFound';
 import ToastContainer from './components/ToastContainer';
+import LandingPage from './pages/Landing';
 
 const styles = {
   '@global': {
@@ -34,6 +35,7 @@ const App = (props) => {
             <Switch>
               <Route path="/dashboard" component={DashboardLayout} />
               <Route path="/auth" component={AuthLayout} />
+              <Route exact path="/" component={LandingPage} />
               <Route component={NotFound} />
             </Switch>
           </Router>

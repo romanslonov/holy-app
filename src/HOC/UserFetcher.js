@@ -17,9 +17,7 @@ class UserFetcher extends React.Component {
   }
 
   render() {
-    const {
-      children, isFetched,
-    } = this.props;
+    const { children, isFetched } = this.props;
 
     if (!isFetched) {
       return <div />;

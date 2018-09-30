@@ -37,7 +37,7 @@ class UserMenu extends Component {
     const { onLogout } = this.props;
     const { router } = this.context;
     onLogout();
-    router.history.replace('/auth/login/');
+    router.history.replace('/');
   }
 
   render() {

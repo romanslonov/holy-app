@@ -1,3 +1,4 @@
+const { DOMAIN_URL } = process.env;
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const bcryptService = require('../services/bcrypt');
@@ -11,7 +12,7 @@ exports.register = async (req, res) => {
 
     const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: 10800 });
     const emailToken = jwt.sign({ id: user.id }, 'emailSecret', { expiresIn: '1d' });
-    const url = `http://localhost:3000/dashboard/confirmation/${emailToken}`;
+    const url = `${DOMAIN_URL}/dashboard/confirmation/${emailToken}`;
 
     await mailer({
       to: user.email,
@@ -97,7 +98,7 @@ exports.resend = async (req, res) => {
 
     const emailToken = jwt.sign({ id: user.id }, 'emailSecret', { expiresIn: '1d' });
 
-    const url = `http://localhost:3000/dashboard/confirmation/${emailToken}`;
+    const url = `${DOMAIN_URL}/dashboard/confirmation/${emailToken}`;
 
     await mailer({
       to: user.email,

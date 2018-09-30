@@ -42,6 +42,9 @@ app.use(bodyParser.json());
 
 app.use(expressValidator());
 
+// serve react static files
+app.use(express.static(path.resolve(__dirname, '../build')));
+
 // secure your private routes with jwt authentication middleware
 app.all('/api/v1/*', (req, res, next) => auth(req, res, next));
 
@@ -54,7 +57,7 @@ app.all('*', (req, res) => res.status(404).json({
   message: "Seems like the endpoint you're looking for no longer exists 🤔",
 }));
 
-app.get('*', (req,res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../build/index.html'));
 });
 
