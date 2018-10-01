@@ -1,5 +1,5 @@
 import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, PROFILE_GET, LOGIN_ERROR, USER_VERIFY,
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, PROFILE_GET, LOGIN_ERROR, USER_VERIFY, USER_ACTIVATE,
 } from '../actions';
 import Auth from '../Auth';
 
@@ -43,6 +43,14 @@ export default (state = initialState, action) => {
         user: {
           ...state.user,
           isVerified: true,
+        },
+      };
+    case USER_ACTIVATE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          isActivated: true,
         },
       };
     case PROFILE_GET:

@@ -10,6 +10,7 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
 
 export const USER_VERIFY = 'USER_VERIFY';
+export const USER_ACTIVATE = 'USER_ACTIVATE';
 
 export const PROFILE_GET = 'PROFILE_GET';
 
@@ -35,6 +36,10 @@ export function logout() {
 
 export function verifyUser() {
   return { type: USER_VERIFY };
+}
+
+export function activateUser() {
+  return { type: USER_ACTIVATE };
 }
 
 export function getProfile(profile) {

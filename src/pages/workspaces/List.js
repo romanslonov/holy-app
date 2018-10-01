@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import request from '../../request';
 
 class FeedPage extends Component {
@@ -24,7 +25,7 @@ class FeedPage extends Component {
         <ul>
           {workspaces.map(({ id, name }) => (
             <li id={id} key={id}>
-              <a href={`/workspaces/${id}`}>{`${name}`}</a>
+              <Link to={`/dashboard/workspaces/${id}`}>{`${name}`}</Link>
             </li>
           ))}
         </ul>

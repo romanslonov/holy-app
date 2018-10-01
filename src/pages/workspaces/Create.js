@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import InjectSheet from 'react-jss';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import Button from '../../components/Button';
 import Box from '../../components/Box';
 import Input from '../../components/Input';
 import request from '../../request';
+import { activateUser } from '../../actions';
 
 const styles = theme => ({
   root: {
@@ -29,22 +32,21 @@ class Create extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  createWorkspace(event) {
+  async createWorkspace(event) {
     event.preventDefault();
 
     const { workspace } = this.state;
+    const { onActivateUser } = this.props;
 
     request('/workspaces/create/', {
       method: 'POST',
       body: JSON.stringify({ name: workspace.name }),
-    })
-      .then(response => response.json())
-      .then(() => {
-        setTimeout(() => {
-          // const { router } = this.context;
-          // router.history.replace('/');
-        }, 400);
-      });
+    });
+
+    onActivateUser();
+
+    const { router } = this.context;
+    router.history.replace('/');
   }
 
   handleChange(event) {
@@ -82,4 +84,9 @@ Create.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default InjectSheet(styles)(Create);
+const composedCreate = compose(
+  connect(null, { onActivateUser: activateUser }),
+  InjectSheet(styles),
+)(Create);
+
+export default composedCreate;

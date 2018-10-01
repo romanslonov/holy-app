@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import request from '../../request';
+import Box from '../../components/Box';
 
 class ItemPage extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class ItemPage extends Component {
 
     const members = await request(`/workspaces/${id}/members`)
       .then(response => response.json())
-      .then(response => response.users);
+      .then(response => response.members);
 
     this.setState({ workspace, members });
   }
@@ -48,24 +49,26 @@ class ItemPage extends Component {
   render() {
     const { workspace, members } = this.state;
     return (
-      <div>
-        <h2>{workspace.name} </h2>
+      <Box>
+        <React.Fragment>
+          <h2>{workspace.name} </h2>
 
-        <div>Invite people to workspace:</div>
-        <br />
-        <form onSubmit={this.invite}>
-          <Input id="email" name="email" placeholder="Enter email" type="email" required label="User email" onChange={this.handleChange} />
+          <div>Invite people to workspace:</div>
           <br />
-          <Button type="submit">Invite</Button>
-        </form>
+          <form onSubmit={this.invite}>
+            <Input id="email" name="email" placeholder="Enter email" type="email" required label="User email" onChange={this.handleChange} />
+            <br />
+            <Button type="submit">Invite</Button>
+          </form>
 
-        <br />
-        <br />
-        <h3>Members:</h3>
-        <ul>
-          { members.map(({ id, name }) => <li key={id}>{name}</li>)}
-        </ul>
-      </div>
+          <br />
+          <br />
+          <h3>Members:</h3>
+          <ul>
+            { members.map(({ id, name }) => <li key={id}>{name}</li>)}
+          </ul>
+        </React.Fragment>
+      </Box>
     );
   }
 }

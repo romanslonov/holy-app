@@ -5,6 +5,7 @@ const development = {
   host: 'localhost',
   port: '32778',
   dialect: 'mysql',
+  logging: false,
 };
 
 const testing = {

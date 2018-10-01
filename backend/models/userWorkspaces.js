@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const UserProjects = sequelize.define('UserProjects', {
+  const UserWorkspaces = sequelize.define('UserWorkspaces', {
     role: {
       type: DataTypes.ENUM('admin', 'user'),
       defaultValue: 'user',
@@ -11,16 +11,16 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    projectId: {
+    workspaceId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Projects',
+        model: 'Workspaces',
         key: 'id',
       },
     },
   }, {});
-  UserProjects.associate = function (models) {
+  UserWorkspaces.associate = function (models) {
     // associations can be defined here
   };
-  return UserProjects;
+  return UserWorkspaces;
 };

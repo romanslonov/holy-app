@@ -50,7 +50,7 @@ module.exports = function (sequelize, DataTypes) {
     hooks, defaultScope, scopes,
   });
   User.associate = function (models) {
-    User.belongsToMany(models.Project, { through: 'UserProjects', foreignKey: 'userId' });
+    User.belongsToMany(models.Workspace, { through: 'UserWorkspaces', foreignKey: 'userId' });
   };
   return User;
 };
