@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-  }, {});
+  }, { paranoid: true });
   Workspace.associate = function (models) {
-    Workspace.belongsToMany(models.User, { through: 'UserWorkspaces', foreignKey: 'workspacesId', as: 'members' });
+    Workspace.belongsToMany(models.User, { through: 'UserWorkspaces', foreignKey: 'workspaceId', as: 'members' });
     Workspace.belongsTo(models.User, { foreignKey: 'ownerId', as: 'owner' });
   };
   return Workspace;

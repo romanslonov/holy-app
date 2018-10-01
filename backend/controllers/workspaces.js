@@ -20,11 +20,15 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.getOne = async (req, res) => {
+exports.findById = async (req, res) => {
   try {
     const { id } = req.params;
 
     const workspace = await Workspace.findById(id);
+
+    if (!workspace) {
+      return res.status(404).json();
+    }
 
     return res.status(200).json({ workspace });
   } catch (err) {
@@ -33,7 +37,7 @@ exports.getOne = async (req, res) => {
   }
 };
 
-exports.getAll = async (req, res) => {
+exports.findAll = async (req, res) => {
   try {
     const workspaces = await Workspace.findAll();
 
@@ -53,6 +57,28 @@ exports.getAllMembersByWorkspaceId = async (req, res) => {
     const members = await workspace.getMembers({ joinTableAttributes: [] });
 
     return res.status(200).json({ members });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+exports.deleteById = async (req, res) => {
+  try {
+    const { id: workspaceId } = req.params;
+    const { id: userId } = req.user;
+
+    await Workspace.destroy({ where: { id: workspaceId } });
+
+    const workspaces = await Workspace.findAll();
+
+    const user = await User.findById(userId);
+
+    if (workspaces.length === 0) {
+      await user.updateAttributes({ isActivated: false });
+    }
+
+    return res.status(200).json();
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: 'Internal server error' });

@@ -1,9 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const UserWorkspaces = sequelize.define('UserWorkspaces', {
-    role: {
-      type: DataTypes.ENUM('admin', 'user'),
-      defaultValue: 'user',
-    },
     userId: {
       type: DataTypes.INTEGER,
       references: {
@@ -18,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-  }, {});
+  }, { paranoid: true });
   UserWorkspaces.associate = function (models) {
     // associations can be defined here
   };

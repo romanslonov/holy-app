@@ -11,6 +11,7 @@ class ItemPage extends Component {
     this.state = ({ email: '', workspace: {}, members: [] });
 
     this.invite = this.invite.bind(this);
+    this.destroy = this.destroy.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -41,6 +42,12 @@ class ItemPage extends Component {
       .then(response => console.log(response));
   }
 
+  destroy() {
+    const { match: { params: { id } } } = this.props;
+
+    request(`/workspaces/${id}`, { method: 'DELETE' });
+  }
+
   handleChange(event) {
     const email = event.target.value;
     this.setState({ email });
@@ -60,6 +67,8 @@ class ItemPage extends Component {
             <br />
             <Button type="submit">Invite</Button>
           </form>
+
+          <Button onClick={this.destroy} type="button">Destroy workspace</Button>
 
           <br />
           <br />

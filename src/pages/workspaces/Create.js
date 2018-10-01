@@ -38,15 +38,17 @@ class Create extends Component {
     const { workspace } = this.state;
     const { onActivateUser } = this.props;
 
-    request('/workspaces/create/', {
+    const response = await request('/workspaces/create/', {
       method: 'POST',
       body: JSON.stringify({ name: workspace.name }),
-    });
+    })
+      .then(res => res.json())
+      .then(res => res.workspace);
 
     onActivateUser();
 
     const { router } = this.context;
-    router.history.replace('/');
+    router.history.replace(`/dashboard/workspaces/${response.id}/`);
   }
 
   handleChange(event) {

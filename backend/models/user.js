@@ -47,7 +47,7 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: 'user',
     },
   }, {
-    hooks, defaultScope, scopes,
+    hooks, defaultScope, scopes, paranoid: true,
   });
   User.associate = function (models) {
     User.belongsToMany(models.Workspace, { through: 'UserWorkspaces', foreignKey: 'userId' });
