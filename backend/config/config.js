@@ -1,5 +1,5 @@
 const development = {
-  database: 'holydb',
+  database: 'taskadb',
   username: 'root',
   password: 'root',
   host: 'localhost',
@@ -8,7 +8,7 @@ const development = {
 };
 
 const testing = {
-  database: 'holydb-test',
+  database: 'taskadb-test',
   username: 'root',
   password: 'root',
   host: 'localhost',

@@ -72,7 +72,7 @@ const styles = theme => ({
 
 const LandingPage = (props) => {
   const { classes, history, isAuthenticated } = props;
-  
+
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }

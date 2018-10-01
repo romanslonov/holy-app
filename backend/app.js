@@ -6,27 +6,23 @@ const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const expressValidator = require('express-validator');
-
-/**
- * server configuration
- */
-const config = require('./config/');
-const dbService = require('./services/db');
+const history = require('connect-history-api-fallback');
+const db = require('./models');
 const auth = require('./middlewares/auth');
-
-// environment: development, staging, testing, production
-const environment = process.env.NODE_ENV;
 
 /**
  * express application
  */
 const app = express();
-dbService(environment, config.migrate).start();
+
+// use middleware to proxy requests through index.html page
+app.use(history());
 
 // allow cross origin requests
 // configure to only allow requests from certain origins
 app.use(cors());
 
+// use logger for http request in short manner
 app.use(morgan('short'));
 
 // secure express app
@@ -39,6 +35,18 @@ app.use(helmet({
 // parsing the request bodys
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+/**
+ * Connect to Database
+ */
+db.sequelize.authenticate()
+  .then(() => {
+    console.log('MySQL: Connection has been established successfully.');
+  })
+  .catch((err) => {
+    console.error('MySQL: Unable to connect to the database:', err);
+  });
+
 
 app.use(expressValidator());
 

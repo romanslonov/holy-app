@@ -1,8 +1,8 @@
 const { DOMAIN_URL } = process.env;
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 const bcryptService = require('../services/bcrypt');
 const mailer = require('../services/mailer');
+const { User } = require('../models');
 
 exports.register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -58,7 +58,7 @@ exports.login = async (req, res) => {
 };
 
 exports.validate = async (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
+  const { token } = req;
 
   try {
     jwt.verify(token, 'secret');
@@ -90,7 +90,7 @@ exports.confirmation = async (req, res) => {
 
 exports.resend = async (req, res) => {
   try {
-    const token = req.headers.authorization.split(' ')[1];
+    const { token } = req;
 
     const decoded = await jwt.verify(token, 'secret');
 

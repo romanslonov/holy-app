@@ -1,13 +1,13 @@
-const Workspace = require('../models/Workspace');
-const UserWorkspace = require('../models/UserWorkspace');
+// const Workspace = require('../models/workspace');
+// const UserWorkspace = require('../models/userworkspaces');
 // const User = require('../models/User');
 
 exports.create = async (req, res) => {
   try {
-    const { name } = req.body;
-    const { id } = req.user;
-
-    const workspace = await Workspace.create({ name, ownerId: id }, { through: 'manager' });
+    // const { name } = req.body;
+    // const { id } = req.user;
+    //
+    // const workspace = await Workspace.create({ name, ownerId: id }, { through: 'manager' });
     // const workspace = await User.addWorkspace({ name, owner_id: id }, { through: { role: 'manager' } });
 
     // const user = await User.findOne({ where: { id } });
@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
 
     // await user.updateAttributes({ is_activated: true });
 
-    return res.status(200).json({ workspace });
+    return res.status(200).json();
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: 'Internal server error' });
@@ -25,11 +25,11 @@ exports.create = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   try {
-    const { id } = req.params;
+    // const { id } = req.params;
+    //
+    // const workspace = await Workspace.findOne({ where: { id } });
 
-    const workspace = await Workspace.findOne({ where: { id } });
-
-    return res.status(200).json({ workspace });
+    return res.status(200).json();
   } catch (err) {
     return res.status(500).json({ message: 'Internal server error' });
   }
@@ -37,15 +37,15 @@ exports.getOne = async (req, res) => {
 
 exports.getAll = async (req, res) => {
   try {
-    const { id } = req.user;
+    // const { id } = req.user;
+    //
+    // const data = await UserWorkspace.findAll({ where: { user_id: id } });
+    //
+    // const promises = data.map(item => Workspace.findOne({ where: { id: item.workspace_id } }));
+    //
+    // const workspaces = await Promise.all(promises);
 
-    const data = await UserWorkspace.findAll({ where: { user_id: id } });
-
-    const promises = data.map(item => Workspace.findOne({ where: { id: item.workspace_id } }));
-
-    const workspaces = await Promise.all(promises);
-
-    return res.status(200).json({ workspaces });
+    return res.status(200).json();
   } catch (err) {
     return res.status(500).json({ message: 'Internal server error' });
   }
