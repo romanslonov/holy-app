@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, Redirect, withRouter} from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import InjectSheet from 'react-jss';
@@ -27,6 +27,7 @@ const styles = theme => ({
     color: 'black',
     marginLeft: '8px',
     fontSize: '1.2rem',
+    letterSpacing: '-0.04rem',
   },
   container: {
     width: '100%',

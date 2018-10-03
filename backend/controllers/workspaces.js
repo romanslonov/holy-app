@@ -1,4 +1,4 @@
-const { Workspace, User } = require('../models');
+const { Workspace, UserWorkspaces, User } = require('../models');
 
 exports.create = async (req, res) => {
   try {
@@ -68,6 +68,7 @@ exports.deleteById = async (req, res) => {
     const { id: workspaceId } = req.params;
     const { id: userId } = req.user;
 
+    await UserWorkspaces.destroy({ where: { workspaceId } });
     await Workspace.destroy({ where: { id: workspaceId } });
 
     const workspaces = await Workspace.findAll();

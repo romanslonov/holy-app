@@ -17,6 +17,18 @@ const styles = theme => ({
     padding: `0 ${theme.spacing.unit * 6}px`,
     boxShadow: '0px 4px 6px 0px rgba(42, 56, 68, 0.05)',
   },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    textDecoration: 'none',
+  },
+  logo__text: {
+    fontWeight: 'bold',
+    color: 'black',
+    marginLeft: '8px',
+    fontSize: '1.2rem',
+    letterSpacing: '-0.04rem',
+  },
   navLink: {
     textDecoration: 'none',
     margin: `0 ${theme.spacing.unit}px`,
@@ -37,8 +49,9 @@ const Navigation = (props) => {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <Link to="/dashboard">
+      <Link to="/dashboard" className={classes.logo}>
         <img src={logo} alt="Logotype" />
+        <span className={classes.logo__text}>Taska</span>
       </Link>
       <div>
         <NavLink exact className={classes.navLink} to="/dashboard">Feed</NavLink>

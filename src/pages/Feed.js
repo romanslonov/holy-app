@@ -5,32 +5,18 @@ class FeedPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = ({ message: '', workspaces: [] });
+    this.state = ({});
   }
 
-  // async componentDidMount() {
-  //   const message = await request('/')
-  //     .then(response => response.json())
-  //     .then(response => response.message);
-  //   const workspaces = await request('/workspaces/')
-  //     .then(response => response.json())
-  //     .then(response => response.workspaces);
-  //   this.setState({ message, workspaces });
-  // }
+  componentDidMount() {
+
+  }
 
   render() {
-    const { message, workspaces } = this.state;
     return (
-      <div>
-        <h2>This is secret message from API: {message}</h2>
-        <p>Only for authenticated users</p>
-        <ul>
-          {workspaces.map(({ id, name }) => (
-            <li id={id} key={id}>
-              <a href={`/workspaces/${id}`}>{`${name}`}</a>
-            </li>
-          ))}
-        </ul>
+      <div style={{ textAlign: 'center' }}>
+        <h2>Thats All for Now</h2>
+        <p>Any new posts will appear in your feed as soon as you or other coworkers create them.</p>
       </div>
     );
   }
