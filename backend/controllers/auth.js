@@ -90,11 +90,9 @@ exports.confirmation = async (req, res) => {
 
 exports.resend = async (req, res) => {
   try {
-    const { token } = req;
+    const { user: { id } } = req;
 
-    const decoded = await jwt.verify(token, 'secret');
-
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(id);
 
     const emailToken = jwt.sign({ id: user.id }, 'emailSecret', { expiresIn: '1d' });
 

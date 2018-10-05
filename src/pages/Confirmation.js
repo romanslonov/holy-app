@@ -41,9 +41,8 @@ class ConfirmationPage extends Component {
   }
 
   confirmUserEmail(token) {
-    return request('http://localhost:9000/auth/confirmation', {
+    return request('/confirmation', {
       method: 'POST',
-      fullPath: true,
       body: JSON.stringify({ token }),
     })
       .then(() => {
@@ -53,10 +52,8 @@ class ConfirmationPage extends Component {
   }
 
   async resend() {
-    await request('http://localhost:9000/auth/confirmation', {
+    await request('/confirmation', {
       method: 'PUT',
-      hasToken: false,
-      fullPath: true,
     });
   }
 
