@@ -19,11 +19,12 @@ class ItemPage extends Component {
   invite(event) {
     event.preventDefault();
 
-    const { workspace, email } = this.state;
+    const { email } = this.state;
+    const { workspace } = this.props;
 
     return request('/workspaces/invite', {
       method: 'POST',
-      body: JSON.stringify({ workspace_id: workspace.id, email }),
+      body: JSON.stringify({ workspaceId: workspace.id, email }),
     })
       .then(response => response.json())
       .then(response => console.log(response));

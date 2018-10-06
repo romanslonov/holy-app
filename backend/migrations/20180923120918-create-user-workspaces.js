@@ -8,6 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      email: {
+        type: Sequelize.STRING,
+        unique: true
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
+      },
       userId: {
         type: Sequelize.INTEGER,
         references: {

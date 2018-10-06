@@ -10,6 +10,7 @@ import AdminLayout from './Admin';
 import WorkspaceLayout from './Workspace';
 import Workspaces from '../pages/workspaces/List';
 import CreateWorkspace from '../pages/workspaces/Create';
+import WorkspaceAcceptInvite from '../pages/workspaces/Accept';
 import Sidebar from '../components/sidebar/Sidebar';
 import Container from '../components/Container';
 import NotFoundPage from '../pages/NotFound';
@@ -31,11 +32,12 @@ const styles = theme => ({
 class DashboardLayout extends React.Component {
   componentDidMount() {
     const {
+      isAuthenticated,
       isWorkspacesFetched,
       onFetchWorkspaces,
     } = this.props;
 
-    if (!isWorkspacesFetched) onFetchWorkspaces();
+    if (!isWorkspacesFetched && isAuthenticated) onFetchWorkspaces();
   }
 
   render() {
@@ -55,7 +57,8 @@ class DashboardLayout extends React.Component {
                     {/* Admin routes */}
                     <Route path="/dashboard/admin" component={CheckPermission(AdminLayout, ['admin'])} />
                     {/* Workspaces routes */}
-                    <Route path="/dashboard/workspace/:id" component={WorkspaceLayout} />
+                    <Route exact path="/dashboard/workspace/:id" component={WorkspaceLayout} />
+                    <Route exact path="/dashboard/workspace/:id/accept/:code" component={WorkspaceAcceptInvite} />
                     <Route exact path="/dashboard/workspaces" component={Workspaces} />
                     <Route exact path="/dashboard/workspaces/create" component={CreateWorkspace} />
                     {/* Profiles routes */}
@@ -83,9 +86,11 @@ DashboardLayout.propTypes = {
   classes: PropTypes.object.isRequired,
   onFetchWorkspaces: PropTypes.func.isRequired,
   isWorkspacesFetched: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
   isWorkspacesFetched: state.workspaces.isFetched,
 });
 
