@@ -1,4 +1,4 @@
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 
 const { DOMAIN_URL } = process.env;
 const { Workspace, UserWorkspaces, User } = require('../models');

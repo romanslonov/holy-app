@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RegisterForm from '../../components/RegisterForm';
 import Auth from '../../Auth';
-import { register, successToast } from '../../actions';
+import { register, showToast } from '../../actions';
 
 class RegisterPage extends Component {
   constructor(props, context) {
@@ -53,14 +53,14 @@ class RegisterPage extends Component {
 
     const { user } = this.state;
     const { router } = this.context;
-    const { onRegister, onSuccessToast } = this.props;
+    const { onRegister, onShowToast } = this.props;
 
     onRegister(user)
       .then(({ user: { isActivated, isVerified } }) => {
         router.history.replace('/dashboard');
 
         if (isActivated && isVerified) {
-          onSuccessToast('Invite was accepted.');
+          onShowToast({ type: 'success', message: 'Invite was accepted.' });
         }
       });
   }
@@ -84,9 +84,9 @@ RegisterPage.contextTypes = {
 
 RegisterPage.propTypes = {
   onRegister: PropTypes.func.isRequired,
-  onSuccessToast: PropTypes.func.isRequired,
+  onShowToast: PropTypes.func.isRequired,
 };
 
 export default connect(null, ({
-  onSuccessToast: successToast, onRegister: register,
+  onShowToast: showToast, onRegister: register,
 }))(RegisterPage);

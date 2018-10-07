@@ -1,19 +1,18 @@
-import { TOAST_SUCCESS, TOAST_ERROR, TOAST_CLEAR } from '../actions';
+import { TOAST_SHOW, TOAST_REMOVE } from '../actions';
 
-export default (state = {}, action) => {
+export default (state = [], action) => {
   switch (action.type) {
-    case TOAST_SUCCESS:
-      return {
-        type: 'success',
-        message: action.message,
-      };
-    case TOAST_ERROR:
-      return {
-        type: 'error',
-        message: action.message,
-      };
-    case TOAST_CLEAR:
-      return {};
+    case TOAST_SHOW:
+      return [
+        ...state,
+        {
+          id: state.length + 1,
+          type: action.toast.type,
+          message: action.toast.message,
+        },
+      ];
+    case TOAST_REMOVE:
+      return state.filter(toast => toast.id !== action.id);
     default:
       return state;
   }

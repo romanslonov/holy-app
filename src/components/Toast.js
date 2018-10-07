@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { removeToast } from '../actions';
 
 const styles = {
-  root: {
-    textAlign: 'center',
-    padding: '12px 0',
+  toast: {
+    padding: '12px',
+    borderRadius: '4px',
   },
   info: {
     backgroundColor: 'blue',
@@ -22,14 +25,43 @@ const styles = {
   },
 };
 
-const Toast = ({ classes, type, message }) => (
-  <div className={classnames(classes.root, classes[type])}>{message}</div>
-);
+class Toast extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.removeToast = this.removeToast.bind(this);
+  }
+
+  componentDidMount() {
+    this.timeoutId = setTimeout(() => this.removeToast(), 5000);
+  }
+
+  componentWillUnmount() {
+    if (this.timeoutId) {
+      this.timeoutId = clearTimeout(this.timeoutId);
+    }
+  }
+
+  removeToast() {
+    const { id, onRemoveToast } = this.props;
+    return onRemoveToast(id);
+  }
+
+  render() {
+    const { classes, type, message } = this.props;
+
+    return (
+      <div className={classnames(classes.toast, classes[type])}>{message}</div>
+    );
+  }
+}
 
 Toast.propTypes = {
+  id: PropTypes.number.isRequired,
   type: PropTypes.string,
   classes: PropTypes.object.isRequired,
   message: PropTypes.string,
+  onRemoveToast: PropTypes.func.isRequired,
 };
 
 Toast.defaultProps = {
@@ -38,4 +70,7 @@ Toast.defaultProps = {
 };
 
 
-export default injectSheet(styles)(Toast);
+export default compose(
+  connect(null, { onRemoveToast: removeToast }),
+  injectSheet(styles),
+)(Toast);

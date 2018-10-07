@@ -10,7 +10,6 @@ import AdminLayout from './Admin';
 import WorkspaceLayout from './Workspace';
 import Workspaces from '../pages/workspaces/List';
 import CreateWorkspace from '../pages/workspaces/Create';
-import WorkspaceAcceptInvite from '../pages/workspaces/Accept';
 import Sidebar from '../components/sidebar/Sidebar';
 import Container from '../components/Container';
 import NotFoundPage from '../pages/NotFound';
@@ -57,8 +56,7 @@ class DashboardLayout extends React.Component {
                     {/* Admin routes */}
                     <Route path="/dashboard/admin" component={CheckPermission(AdminLayout, ['admin'])} />
                     {/* Workspaces routes */}
-                    <Route exact path="/dashboard/workspace/:id" component={WorkspaceLayout} />
-                    <Route exact path="/dashboard/workspace/:id/accept/:code" component={WorkspaceAcceptInvite} />
+                    <Route path="/dashboard/workspace/:id" component={WorkspaceLayout} />
                     <Route exact path="/dashboard/workspaces" component={Workspaces} />
                     <Route exact path="/dashboard/workspaces/create" component={CreateWorkspace} />
                     {/* Profiles routes */}

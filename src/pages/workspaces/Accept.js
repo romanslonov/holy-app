@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import request from '../../request';
 import { fetchWorkspaces } from '../../actions';
+import Auth from '../../Auth';
 
 class ConfirmationPage extends Component {
   constructor(props) {
@@ -14,7 +15,11 @@ class ConfirmationPage extends Component {
   }
 
   componentDidMount() {
-    this.acceptInvite();
+    if (Auth.isUserAuthenticated()) {
+      const { router } = this.context;
+      return router.history.replace('/dashboard');
+    }
+    return this.acceptInvite();
   }
 
   acceptInvite() {

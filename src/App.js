@@ -7,7 +7,7 @@ import AuthLayout from './layouts/Auth';
 import history from './history';
 import theme from './theme';
 import NotFound from './pages/NotFound';
-import ToastContainer from './components/ToastContainer';
+import ToastContainer from './components/ToastManager';
 import LandingPage from './pages/Landing';
 
 const styles = {

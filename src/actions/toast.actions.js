@@ -1,15 +1,10 @@
-export const TOAST_SUCCESS = 'TOAST_SUCCESS';
-export const TOAST_ERROR = 'TOAST_ERROR';
-export const TOAST_CLEAR = 'TOAST_CLEAR';
+export const TOAST_SHOW = 'TOAST_SHOW';
+export const TOAST_REMOVE = 'TOAST_REMOVE';
 
-export function successToast(message) {
-  return { type: TOAST_SUCCESS, message };
+export function showToast({ type, message }) {
+  return { type: TOAST_SHOW, toast: { type, message } };
 }
 
-export function errorToast(message) {
-  return { type: TOAST_ERROR, message };
-}
-
-export function clearToast() {
-  return { type: TOAST_CLEAR };
+export function removeToast(id) {
+  return { type: TOAST_REMOVE, id };
 }

@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import {
+  Route, Switch, withRouter, Redirect,
+} from 'react-router-dom';
 import { fetchWorkspace, clearWorkspace } from '../actions/index';
 import Workspace from '../pages/workspaces/Workspace';
 import WorkspaceFeed from '../pages/workspaces/Feed';
 import WorkspaceBoards from '../pages/workspaces/Boards';
 import WorkspaceSettings from '../pages/workspaces/Settings';
-
+import WorkspaceAcceptInvite from '../pages/workspaces/Accept';
 /**
  * At this point we know that user is authenticated, has token
  * and now we can fetch his profile if it's not fetched yet.
@@ -47,20 +49,15 @@ class WorkspaceFetcher extends React.Component {
     return (
       <div>
         <Switch>
+          <Redirect exact from="/dashboard/workspace/:id" to="/dashboard/workspace/:id/feed" />
           <Route exact path="/dashboard/workspace/:id" component={Workspace} />
+          <Route path="/dashboard/workspace/:id/accept/:code" component={WorkspaceAcceptInvite} />
           <Route path="/dashboard/workspace/:id/feed" component={WorkspaceFeed} />
           <Route path="/dashboard/workspace/:id/boards" component={WorkspaceBoards} />
           <Route path="/dashboard/workspace/:id/settings" component={WorkspaceSettings} />
         </Switch>
       </div>
     );
-
-    //
-    // if (!isWorkspacesFetched) {
-    //   return <div />;
-    // }
-    //
-    // return <React.Fragment>{children}</React.Fragment>;
   }
 }
 
