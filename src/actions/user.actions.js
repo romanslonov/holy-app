@@ -80,6 +80,7 @@ export function register(newUser) {
       .then(({ user, token }) => {
         Auth.authenticateUser(token);
         dispatch(loginSuccess({ user, token }));
+        return { user, token };
       });
   };
 }

@@ -2,25 +2,34 @@ const { DOMAIN_URL } = process.env;
 const jwt = require('jsonwebtoken');
 const bcryptService = require('../services/bcrypt');
 const mailer = require('../services/mailer');
-const { User } = require('../models');
+const { User, UserWorkspaces } = require('../models');
 
 exports.register = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    const invitedUser = await UserWorkspaces.find({ where: { email } });
+
     const user = await User.create({ name, email, password });
-
     const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: 10800 });
-    const emailToken = jwt.sign({ id: user.id }, 'emailSecret', { expiresIn: '1d' });
 
-    const url = `${DOMAIN_URL}/dashboard/confirmation/${emailToken}`;
+    if (invitedUser) {
+      await UserWorkspaces.update({ isAccepted: true, userId: user.id }, { where: { email } });
+      await user.update({ isActivated: true, isVerified: true }, { where: { id: user.id } });
+    }
 
-    await mailer({
-      to: user.email,
-      from: 'support@taska.space',
-      subject: 'Confirm your email',
-      html: `<a href="${url}">${url}</a>`,
-    });
+    if (!invitedUser) {
+      const emailToken = jwt.sign({ id: user.id }, 'emailSecret', { expiresIn: '1d' });
+
+      const url = `${DOMAIN_URL}/dashboard/confirmation/${emailToken}`;
+
+      await mailer({
+        to: user.email,
+        from: 'support@taska.space',
+        subject: 'Confirm your email',
+        html: `<a href="${url}">${url}</a>`,
+      });
+    }
 
     return res.status(200).json({ token, user });
   } catch (err) {

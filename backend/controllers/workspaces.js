@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
     const { name } = req.body;
     const { id: userId } = req.user;
 
-    const workspace = await Workspace.create({ name, userId });
+    const workspace = await Workspace.create({ name, ownerId: userId });
 
     const user = await User.findById(userId);
 
@@ -44,7 +44,7 @@ exports.findById = async (req, res) => {
 exports.findAll = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-    const workspaces = await user.getWorkspaces({ through: { where: { status: true } } });
+    const workspaces = await user.getWorkspaces({ through: { where: { isAccepted: true } } });
 
     return res.status(200).json({ workspaces });
   } catch (err) {
@@ -99,10 +99,10 @@ exports.invite = async (req, res) => {
 
     const { code } = user
       ? await UserWorkspaces.create({
-        workspaceId, status: false, userId: user.id, code: uuid(),
+        workspaceId, isAccepted: false, userId: user.id, code: uuid(),
       })
       : await UserWorkspaces.create({
-        workspaceId, email, status: false, code: uuid(),
+        workspaceId, email, isAccepted: false, code: uuid(),
       });
 
     const url = `${DOMAIN_URL}/dashboard/workspace/${workspaceId}/accept/${code}/`;
@@ -110,11 +110,11 @@ exports.invite = async (req, res) => {
     await mailer({
       to: email,
       from: 'support@taska.space',
-      subject: 'You\'ve been invited to team',
+      subject: 'You\'ve been invited to workspace',
       html: `<a href="${url}">${url}</a>`,
     });
 
-    return res.status(200).json({ workspaceId, email });
+    return res.status(200).json({ member: { workspaceId, email, status: 'pending' } });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: 'Internal server error' });
@@ -127,7 +127,8 @@ exports.accept = async (req, res) => {
     const { code } = req.body;
     const { id: workspaceId } = req.params;
 
-    await UserWorkspaces.update({ status: true, userId }, { where: { code } });
+    await UserWorkspaces.update({ isAccepted: true, userId }, { where: { code } });
+    await User.update({ isActivated: true }, { where: { id: userId } });
 
     const workspace = await Workspace.findById(workspaceId);
 

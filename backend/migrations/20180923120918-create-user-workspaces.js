@@ -12,7 +12,10 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
-      status: {
+      code: {
+        type: Sequelize.STRING
+      },
+      isAccepted: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
       },

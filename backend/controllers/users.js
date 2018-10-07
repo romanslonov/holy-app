@@ -4,6 +4,10 @@ exports.getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
 
+    if (!user) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
     return res.status(200).json({ profile: user });
   } catch (err) {
     console.log(err);

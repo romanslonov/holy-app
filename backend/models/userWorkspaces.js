@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-    status: {
+    isAccepted: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
     },
