@@ -9,11 +9,24 @@ class ItemPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = ({ email: '', members: [] });
+    this.state = ({ email: '', members: [], isMembersLoaded: false });
 
     this.invite = this.invite.bind(this);
     this.destroy = this.destroy.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchMembers();
+  }
+
+  fetchMembers() {
+    const { workspace } = this.props;
+    return request(`/workspaces/${workspace.id}/members`)
+      .then(response => response.json())
+      .then(({ members }) => {
+        this.setState({ members, isMembersLoaded: true });
+      });
   }
 
   invite(event) {
@@ -42,7 +55,7 @@ class ItemPage extends Component {
   }
 
   render() {
-    const { members } = this.state;
+    const { members, isMembersLoaded } = this.state;
     const { workspace, isFetched } = this.props;
 
     if (!isFetched) {
@@ -67,9 +80,11 @@ class ItemPage extends Component {
             <br />
             <br />
             <h3>Members:</h3>
-            <ul>
-              { members.map(({ id, name }) => <li key={id}>{name}</li>)}
-            </ul>
+            {
+              isMembersLoaded
+                ? <ul> { members.map(({ id, name }) => <li key={id}>{name}</li>)}</ul>
+                : <div>Loading members...</div>
+            }
           </React.Fragment>
         </Box>
       </React.Fragment>

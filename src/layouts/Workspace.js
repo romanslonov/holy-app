@@ -11,11 +11,8 @@ import WorkspaceFeed from '../pages/workspaces/Feed';
 import WorkspaceBoards from '../pages/workspaces/Boards';
 import WorkspaceSettings from '../pages/workspaces/Settings';
 import WorkspaceAcceptInvite from '../pages/workspaces/Accept';
-/**
- * At this point we know that user is authenticated, has token
- * and now we can fetch his profile if it's not fetched yet.
- * Block render child component while profile is fetching.
- */
+
+
 class WorkspaceFetcher extends React.Component {
   componentDidMount() {
     const {
@@ -49,7 +46,7 @@ class WorkspaceFetcher extends React.Component {
     return (
       <div>
         <Switch>
-          <Redirect exact from="/dashboard/workspace/:id" to="/dashboard/workspace/:id/feed" />
+          {/*<Redirect exact from="/dashboard/workspace/:id" to="/dashboard/workspace/:id/feed" />*/}
           <Route exact path="/dashboard/workspace/:id" component={Workspace} />
           <Route path="/dashboard/workspace/:id/accept/:code" component={WorkspaceAcceptInvite} />
           <Route path="/dashboard/workspace/:id/feed" component={WorkspaceFeed} />

@@ -59,7 +59,14 @@ exports.getAllMembersByWorkspaceId = async (req, res) => {
 
     const workspace = await Workspace.findById(id);
 
-    const members = await workspace.getMembers({ joinTableAttributes: [] });
+    let members = await workspace.getMembers();
+
+    members = members.map(member => ({
+      id: member.id,
+      email: member.email,
+      name: member.name,
+      isAccepted: member.UserWorkspaces.isAccepted,
+    }));
 
     return res.status(200).json({ members });
   } catch (err) {
