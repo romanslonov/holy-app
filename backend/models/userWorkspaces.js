@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, { paranoid: true });
   UserWorkspaces.associate = function (models) {
-    // associations can be defined here
+    UserWorkspaces.hasOne(models.User, { foreignKey: 'id', as: 'user' });
   };
   return UserWorkspaces;
 };

@@ -57,15 +57,17 @@ exports.getAllMembersByWorkspaceId = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const workspace = await Workspace.findById(id);
+    // const workspace = await Workspace.findById(id);
 
-    let members = await workspace.getMembers();
+    let members = await UserWorkspaces.findAll({
+      where: { workspaceId: id },
+      include: [{ model: User, as: 'user' }],
+    });
 
     members = members.map(member => ({
-      id: member.id,
-      email: member.email,
-      name: member.name,
-      isAccepted: member.UserWorkspaces.isAccepted,
+      name: member.user ? member.user.name : null,
+      email: member.email || member.user.email,
+      status: member.isAccepted ? 'accepted' : 'pending',
     }));
 
     return res.status(200).json({ members });
@@ -121,7 +123,7 @@ exports.invite = async (req, res) => {
       html: `<a href="${url}">${url}</a>`,
     });
 
-    return res.status(200).json({ member: { workspaceId, email, status: 'pending' } });
+    return res.status(200).json({ member: { name: null, email, status: 'pending' } });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: 'Internal server error' });

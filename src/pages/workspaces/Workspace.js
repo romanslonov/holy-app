@@ -32,7 +32,7 @@ class ItemPage extends Component {
   invite(event) {
     event.preventDefault();
 
-    const { email } = this.state;
+    const { email, members } = this.state;
     const { workspace } = this.props;
 
     return request('/workspaces/invite', {
@@ -40,7 +40,7 @@ class ItemPage extends Component {
       body: JSON.stringify({ workspaceId: workspace.id, email }),
     })
       .then(response => response.json())
-      .then(response => console.log(response));
+      .then(({ member }) => this.setState({ members: [...members, member] }));
   }
 
   destroy() {
@@ -82,7 +82,7 @@ class ItemPage extends Component {
             <h3>Members:</h3>
             {
               isMembersLoaded
-                ? <ul> { members.map(({ id, name }) => <li key={id}>{name}</li>)}</ul>
+                ? <ul>{ members.map(({ name, email, status }) => <li key={email}>{name || email} ({status})</li>)}</ul>
                 : <div>Loading members...</div>
             }
           </React.Fragment>
